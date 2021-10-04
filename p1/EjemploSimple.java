@@ -1,3 +1,8 @@
+/***********************************************************************
+*****************************RI: PRÁCTICA 1*****************************
+Autores:  Óscar Pérez Tobarra ; Juan Manuel Consigliere Picco
+Exec:  java -cp tika-app-1.24.jar:. EjemploSimple ./test/ -d 2>/dev/null
+***********************************************************************/
 import java.io.File;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
