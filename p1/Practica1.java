@@ -19,6 +19,7 @@ import org.apache.tika.sax.Link;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.html.HtmlParser;
 import org.apache.commons.io.IOUtils;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,7 +102,23 @@ public class Practica1 {
     }
 
     else if(args[1].equals("-t")){
-      
+      /*
+      Pasamos el archivo a String con parse
+      Creamos el map
+      Tokenizamos la palabra con split
+      Recorremos el map: cuando no encuentre clave crea una nueva, y cuando encuentre clave se suma 1 a la clave
+      Convertimos el output a CSV
+      */
+      for (File archivo : archivos) {
+        String text = tika.parseToString(archivo); //Se parsea el fichero a texto plano
+        tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
+        
+        //Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
+
+        for(){ //Map.Entry<String, Integer> i : ocurrencias.entrySet()
+          
+        }
+      }
     }
 
     else{
