@@ -20,8 +20,14 @@ import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.html.HtmlParser;
 import org.apache.commons.io.IOUtils;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 
 public class Practica1 {
   public static String detectarLenguaje (String text) {
@@ -112,12 +118,31 @@ public class Practica1 {
       for (File archivo : archivos) {
         String text = tika.parseToString(archivo); //Se parsea el fichero a texto plano
         tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
-        
-        //Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
 
-        for(){ //Map.Entry<String, Integer> i : ocurrencias.entrySet()
-          
+        String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\-|\\+|\\_"); 
+        List<String> palabras = Arrays.stream(split).collect(Collectors.toList());
+        Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
+
+        for(String palabra: palabras){
+          int contador = 0;
+          if(!ocurrencias.containsKey(palabra)){
+            for(int i = 0; i < palabras.size(); i++){
+              if(palabra.equals(palabras.get(i)))
+                contador++;
+            }
+
+            ocurrencias.put(palabra, contador);
+          }
         }
+
+        List<Map.Entry<String, Integer>> words = ocurrencias.entrySet().stream().collect(Collectors.toList());
+        Collections.sort(words, new Comparator<Map.Entry<String, Integer>>(){
+          public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2){
+            return o2.getValue().compareTo(o1.getValue());
+          }
+        });
+
+        System.out.println(words); 
       }
     }
 
