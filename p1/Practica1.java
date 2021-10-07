@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
+import java.io.PrintWriter;
 
 
 public class Practica1 {
@@ -115,12 +116,9 @@ public class Practica1 {
         /*
         Split: Añade a un array de String las palabras, separándolas por los caracteres que hemos especificado.
         */
-        String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\-|\\–|\\−|\\+|\\_|\\<|\\>|\\/|\\=|\"|\'|\#|\$|\%"); 
+        String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\:|\\|"+
+                                    "|\\-|\\–|\\−|\\+|\\_|\\<|\\>|\\/|\\=|\"|\'|\\#|\\$|\\%|\\—|\\\\|\\•|\\’"); 
         Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
-
-        // for(String i : palabras){
-        //   System.out.println(i);
-        // }
 
         for(String palabra: split){
           int contador = 0;
@@ -163,8 +161,14 @@ public class Practica1 {
 
         System.out.println();
 
-        // PrintWriter writer = new PrintWriter(new File(archivo.getName()+".csv"));
-        // writter.append
+        PrintWriter writer = new PrintWriter(new File("./csv/"+archivo.getName()+".csv"));
+        writer.write("Text;Size\n");
+
+        for(Map.Entry<String, Integer> i : words){
+          writer.write(i.getKey()+";"+i.getValue()+"\n");
+        }
+        
+        writer.close();
       }
     }
 
