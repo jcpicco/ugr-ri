@@ -109,20 +109,18 @@ public class Practica1 {
 
     else if(args[1].equals("-t")){
       for (File archivo : archivos) {
-        String text = tika.parseToString(archivo); //Se parsea el fichero a texto plano
+        String text = tika.parseToString(archivo).toLowerCase(); //Se parsea el fichero a texto plano
         tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
 
         /*
         Split: Añade a un array de String las palabras, separándolas por los caracteres que hemos especificado.
         */
-        String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\-|\\+|\\_|\\<|\\>|\\/|\\="); 
+        String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\-|\\–|\\−|\\+|\\_|\\<|\\>|\\/|\\=|\"|\'|\#|\$|\%"); 
         Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
 
         // for(String i : palabras){
         //   System.out.println(i);
         // }
-
-        System.out.println("Archivo: "+archivo.getName());
 
         for(String palabra: split){
           int contador = 0;
@@ -155,8 +153,18 @@ public class Practica1 {
           words.remove(i);
         }
 
-        System.out.println(words); 
+
+        System.out.println("Archivo: "+archivo.getName());
+        System.out.println("Text;Size");
+
+        for(Map.Entry<String, Integer> i : words){
+          System.out.println(i.getKey()+";"+i.getValue()); 
+        }
+
         System.out.println();
+
+        // PrintWriter writer = new PrintWriter(new File(archivo.getName()+".csv"));
+        // writter.append
       }
     }
 
