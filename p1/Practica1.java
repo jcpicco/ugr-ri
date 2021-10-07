@@ -108,30 +108,27 @@ public class Practica1 {
     }
 
     else if(args[1].equals("-t")){
-      /*
-      Pasamos el archivo a String con parse
-      Creamos el map
-      Tokenizamos la palabra con split
-      Recorremos el map: cuando no encuentre clave crea una nueva, y cuando encuentre clave se suma 1 a la clave
-      Convertimos el output a CSV
-      */
       for (File archivo : archivos) {
         String text = tika.parseToString(archivo); //Se parsea el fichero a texto plano
         tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
 
+        /*
+        Split: Añade a un array de String las palabras, separándolas por los caracteres que hemos especificado.
+        */
         String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\-|\\+|\\_|\\<|\\>|\\/|\\="); 
-        List<String> palabras = Arrays.stream(split).collect(Collectors.toList());
         Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
 
-        for(String i : palabras){
-          System.out.println(i);
-        }
+        // for(String i : palabras){
+        //   System.out.println(i);
+        // }
 
-        for(String palabra: palabras){
+        System.out.println("Archivo: "+archivo.getName());
+
+        for(String palabra: split){
           int contador = 0;
           if(!ocurrencias.containsKey(palabra)){
-            for(int i = 0; i < palabras.size(); i++){
-              if(palabra.equals(palabras.get(i)))
+            for(int i = 0; i < split.length; i++){
+              if(palabra.equals(split[i]))
                 contador++;
             }
 
@@ -146,7 +143,20 @@ public class Practica1 {
           }
         });
 
+        ArrayList<Map.Entry<String, Integer>> aborrar = new ArrayList<>();
+
+        for(Map.Entry<String, Integer> i : words){
+          if(i.getKey().matches(".*\\d.*") || i.getKey().equals("")){
+            aborrar.add(i);
+          }
+        }
+        
+        for(Map.Entry<String, Integer> i : aborrar){
+          words.remove(i);
+        }
+
         System.out.println(words); 
+        System.out.println();
       }
     }
 
