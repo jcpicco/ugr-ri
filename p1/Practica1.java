@@ -161,7 +161,7 @@ public class Practica1 {
 
         System.out.println();
 
-        PrintWriter writer = new PrintWriter(new File("./csv/"+archivo.getName()+".csv"));
+        PrintWriter writer = new PrintWriter(new File("./csv/"+archivo.getName().substring(0, archivo.getName().lastIndexOf("."))+".csv"));
         writer.write("Text;Size\n");
 
         for(Map.Entry<String, Integer> i : words){
