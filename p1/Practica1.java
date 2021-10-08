@@ -52,9 +52,8 @@ public class Practica1 {
     }
 
     if(args[1].equals("-d")){
-      System.out.format("+----------------------------------------+----------------------------+-------------------------+--------------------+%n");
-      System.out.format("| Nombre del fichero                     | Tipo de fichero            | Codificacion            | Idioma             |%n");
-      System.out.format("+----------------------------------------+----------------------------+-------------------------+--------------------+%n");
+      System.out.format("| Título                                 | Tipo de fichero            | Codificacion            | Idioma             |%n"+
+                        "|----------------------------------------|----------------------------|-------------------------|--------------------|%n");
       
       for (File archivo : archivos) {
         ArrayList<String> info = new ArrayList<>(); //Estructura para almacenar los datos que se buscan
@@ -79,8 +78,6 @@ public class Practica1 {
         String formato = "| %-36s   |  %-25s | %-23s | %-18s |%n";
         System.out.format(formato, info.get(0), info.get(1), info.get(3), info.get(2));
       }
-
-      System.out.format("+----------------------------------------+----------------------------+-------------------------+--------------------+%n");
     }
 
     else if(args[1].equals("-l")){
