@@ -102,7 +102,10 @@ public class Practica1 {
         if(links.isEmpty())
           System.out.println("No se han encontrado enlaces.");
         else
-          for(Link i : links) System.out.println("\t"+i.getUri());
+          for(Link i : links){
+            if(!i.getUri().toString().contains("@") && !i.getUri().toString().equals(""))
+              System.out.println("\t"+i.getUri());
+          }
         
         System.out.println();
       }
