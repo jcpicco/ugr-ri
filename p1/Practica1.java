@@ -82,6 +82,7 @@ public class Practica1 {
 
     else if(args[1].equals("-l")){
       for (File archivo : archivos) {
+        Boolean j;
         InputStream input = new FileInputStream(archivo); // Convertimos el archivo File a InputStream (Admitido por parse())
         LinkContentHandler link = new LinkContentHandler(); // Estructura de almacenamiento de enlaces
         ParseContext contexto = new ParseContext(); // Indica el contexto en que trabaja
@@ -94,11 +95,18 @@ public class Practica1 {
         
         if(links.isEmpty())
           System.out.println("No se han encontrado enlaces.");
-        else
+        else{
+          j = false;
           for(Link i : links){
-            if(!i.getUri().toString().contains("@") && !i.getUri().toString().equals(""))
+            if(!i.getUri().toString().contains("@") && !i.getUri().toString().equals("")){
               System.out.println("\t"+i.getUri());
+              j = true;
+            }
           }
+
+          if(!j)
+            System.out.println("No se han encontrado enlaces.");
+        }
         
         System.out.println();
       }
@@ -107,13 +115,13 @@ public class Practica1 {
     else if(args[1].equals("-t")){
       for (File archivo : archivos) {
         String text = tika.parseToString(archivo).toLowerCase(); //Se parsea el fichero a texto plano
-        tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
 
         /*
         Split: Añade a un array de String las palabras, separándolas por los caracteres que hemos especificado.
         */
         String[] split = text.split("\\s+|\\.|\\,|\\;|\\?|\\!|\\¿|\\¡|\\(|\\)|\\{|\\}|\\[|\\]|\\:|\\|"+
                                     "|\\-|\\–|\\−|\\+|\\_|\\<|\\>|\\/|\\=|\"|\'|\\#|\\$|\\%|\\—|\\\\|\\•|\\’"); 
+        
         Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
 
         for(String palabra: split){
