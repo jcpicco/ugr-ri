@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-public class comparador_analyzer{
+public class practica2_1{
 	public static void main(String[] args) throws IOException{
 		Analyzer whitespace = new WhitespaceAnalyzer();
 		Analyzer simple = new SimpleAnalyzer();
@@ -47,9 +47,9 @@ public class comparador_analyzer{
 			TokenStream whitespaceStream = whitespace.tokenStream(null, text);
 			Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
 
-			whitespaceStream.reset();
-			while(whitespaceStream.incrementToken()){
-				String palabra = whitespaceStream.getAttribute(CharTermAttribute.class).toString();
+			whitespaceStream.reset(); //Se le llama antes de usar incrementToken()
+			while(whitespaceStream.incrementToken()){ //Itera de token en token
+				String palabra = whitespaceStream.getAttribute(CharTermAttribute.class).toString(); //Pasamos el apartado de texto del token a String
 		        if(!ocurrencias.containsKey(palabra))
 		        	ocurrencias.put(palabra, 1);
 		        else{
@@ -57,8 +57,8 @@ public class comparador_analyzer{
 		            ocurrencias.replace(palabra, valor, valor+1);
 		        } 
 		    }
-			whitespaceStream.end();
-			whitespaceStream.close();
+			whitespaceStream.end(); //Se le llama cuando se termina de iterar
+			whitespaceStream.close(); //Liberas los recursos asociados al stream
 
 			List<Map.Entry<String, Integer>> words = ocurrencias.entrySet().stream().collect(Collectors.toList());
         	Collections.sort(words, new Comparator<Map.Entry<String, Integer>>(){
@@ -66,6 +66,15 @@ public class comparador_analyzer{
             		return o2.getValue().compareTo(o1.getValue());
           		}
         	});
+
+			System.out.println("Archivo: "+archivo.getName());
+        	System.out.println("Text;Size");
+
+        	for(Map.Entry<String, Integer> i : words){
+        	  System.out.println(i.getKey()+";"+i.getValue()); 
+        	}
+
+			System.out.println();
 		}
 	}
 }
