@@ -19,62 +19,65 @@ import java.util.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
+import java.io.PrintWriter;
 
 public class practica2_1{
-	public static void main(String[] args) throws IOException{
-		Analyzer whitespace = new WhitespaceAnalyzer();
-		Analyzer simple = new SimpleAnalyzer();
-		Analyzer stop = new StopAnalyzer();
-		Analyzer standard = new StandardAnalyzer();
+	public static void Analizador(Analyzer analyzer, String nombre_analizador, String texto, String nombre_archivo) throws IOException{
+		TokenStream stream = analyzer.tokenStream(null, texto);
+		Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
 
+		stream.reset(); //Se le llama antes de usar incrementToken()
+		while(stream.incrementToken()){ //Itera de token en token
+			String palabra = stream.getAttribute(CharTermAttribute.class).toString(); //Pasamos el apartado de texto del token a String
+		    if(!ocurrencias.containsKey(palabra))
+		        	ocurrencias.put(palabra, 1);
+		    else{
+		    	int valor = ocurrencias.get(palabra);
+		        ocurrencias.replace(palabra, valor, valor+1);
+		    } 
+		}
+			
+		stream.end(); //Se le llama cuando se termina de iterar
+		stream.close(); //Liberas los recursos asociados al stream
+
+		List<Map.Entry<String, Integer>> words = ocurrencias.entrySet().stream().collect(Collectors.toList());
+        Collections.sort(words, new Comparator<Map.Entry<String, Integer>>(){
+         	public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2){
+           		return o2.getValue().compareTo(o1.getValue());
+          	}
+        });
+
+        PrintWriter writer = new PrintWriter(new File("./csv/" + nombre_archivo.substring(0, nombre_archivo.lastIndexOf("."))+"-" + nombre_analizador + ".csv"));
+        writer.write("Text;Size\n");
+
+        for(Map.Entry<String, Integer> i : words){
+          writer.write(i.getKey()+";"+i.getValue()+"\n");
+        }
+        
+        writer.close();
+
+        System.out.println("Finalizado procesamiento del analizador " + nombre_analizador + "analyzer");
+	}
+
+	public static void main(String[] args) throws IOException{
 		Tika tika = new Tika();
         Metadata metadata = new Metadata();
-		File dir = new File(args[0]);
-		File[] archivos = dir.listFiles();
+		File archivo = new File("../test/hamlet.txt");
 
-		for(File archivo: archivos){
-			String text = new String();
+		String text = new String();
 
-			try{
-				text = tika.parseToString(archivo);
-			}catch (Exception e){ 
-				System.out.println("No se puede parsear...\n\n");
-				continue;
-			}
-
-        	tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
-
-			TokenStream whitespaceStream = whitespace.tokenStream(null, text);
-			Map<String, Integer> ocurrencias = new HashMap<String, Integer>();
-
-			whitespaceStream.reset(); //Se le llama antes de usar incrementToken()
-			while(whitespaceStream.incrementToken()){ //Itera de token en token
-				String palabra = whitespaceStream.getAttribute(CharTermAttribute.class).toString(); //Pasamos el apartado de texto del token a String
-		        if(!ocurrencias.containsKey(palabra))
-		        	ocurrencias.put(palabra, 1);
-		        else{
-		        	int valor = ocurrencias.get(palabra);
-		            ocurrencias.replace(palabra, valor, valor+1);
-		        } 
-		    }
-			whitespaceStream.end(); //Se le llama cuando se termina de iterar
-			whitespaceStream.close(); //Liberas los recursos asociados al stream
-
-			List<Map.Entry<String, Integer>> words = ocurrencias.entrySet().stream().collect(Collectors.toList());
-        	Collections.sort(words, new Comparator<Map.Entry<String, Integer>>(){
-          		public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2){
-            		return o2.getValue().compareTo(o1.getValue());
-          		}
-        	});
-
-			System.out.println("Archivo: "+archivo.getName());
-        	System.out.println("Text;Size");
-
-        	for(Map.Entry<String, Integer> i : words){
-        	  System.out.println(i.getKey()+";"+i.getValue()); 
-        	}
-
-			System.out.println();
+		try{
+			text = tika.parseToString(archivo);
+		}catch (Exception e){ 
+			System.out.println("No se puede parsear...\n\n");
 		}
+
+        tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
+        String nombre_archivo = archivo.getName();
+
+        Analizador(new WhitespaceAnalyzer(), "whitespace", text, nombre_archivo);
+        Analizador(new SimpleAnalyzer(), "simple", text, nombre_archivo);
+        Analizador(new StopAnalyzer(), "stop", text, nombre_archivo);
+        Analizador(new StandardAnalyzer(), "standard", text, nombre_archivo);
 	}
 }
