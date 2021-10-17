@@ -1,0 +1,2 @@
+java -cp .:../lucene-7.1.0/core/lucene-core-7.1.0.jar:../lucene-7.1.0/analysis/common/lucene-analyzers-common-7.1.0.jar:../tika-app-1.24.jar practica2_3 2> /dev/null
+javac -cp ../lucene-7.1.0/core/lucene-core-7.1.0.jar:../lucene-7.1.0/analysis/common/lucene-analyzers-common-7.1.0.jar:../tika-app-1.24.jar practica2_3.java 
