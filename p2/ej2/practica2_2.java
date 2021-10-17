@@ -14,6 +14,9 @@ import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.commongrams.CommonGramsFilter;
 import org.apache.lucene.analysis.synonym.SynonymFilter;
 import org.apache.lucene.analysis.standard.StandardFilter;
+import org.apache.lucene.analysis.CharArraySet;
+import org.apache.lucene.analysis.synonym.SynonymMap;
+import org.apache.lucene.util.CharsRef;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,6 +47,11 @@ public class practica2_2{
 	}
 
 	public static void main(String[] args) throws IOException{
+		SynonymMap.Builder builder = new SynonymMap.Builder(true);
+        builder.add(new CharsRef("have"), new CharsRef("deprived"), true);
+        builder.add(new CharsRef("for"), new CharsRef("his"), true);
+        SynonymMap sinonimos = builder.build();
+
 		Tika tika = new Tika();
         Metadata metadata = new Metadata();
 		File archivo = new File("./test.txt");
@@ -56,6 +64,11 @@ public class practica2_2{
 			System.out.println("No se puede parsear...\n\n");
 		}
 
+		CharArraySet palabras = new CharArraySet(0,false);
+		palabras.add("very");
+		palabras.add("poor");
+		palabras.add("away");
+
         tika.parse(archivo,metadata); //Parseamos el fichero de texto plano
         String nombre_archivo = archivo.getName();
 
@@ -66,7 +79,7 @@ public class practica2_2{
 		Filtro(new ShingleFilter(new WhitespaceAnalyzer().tokenStream(null, text)), "ShingleFilter");
 		Filtro(new EdgeNGramTokenFilter(new WhitespaceAnalyzer().tokenStream(null, text),2,4), "EdgeNGramTokenFilter");
 		Filtro(new NGramTokenFilter(new WhitespaceAnalyzer().tokenStream(null, text),2,4), "NGramTokenFilter");
-		Filtro(new CommonGramsFilter(new WhitespaceAnalyzer().tokenStream(null, text)), "CommonGramsFilter");
-		Filtro(new SynonymFilter(new WhitespaceAnalyzer().tokenStream(null, text)), "SynonymFilter");
+		Filtro(new CommonGramsFilter(new WhitespaceAnalyzer().tokenStream(null, text),palabras), "CommonGramsFilter");
+		Filtro(new SynonymFilter(new WhitespaceAnalyzer().tokenStream(null, text), sinonimos, true), "SynonymFilter");
 	}
 }
