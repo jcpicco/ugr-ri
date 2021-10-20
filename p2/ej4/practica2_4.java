@@ -2,7 +2,7 @@ import java.io.IOException;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
+import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 import java.io.File;
@@ -41,6 +41,6 @@ public class practica2_4{
 			System.out.println("No se puede parsear...\n\n");
 		}
 
-        Filtro(new FourLettersFilter(new WhitespaceAnalyzer().tokenStream(null, text)), "FourLettersFilter");
+        Filtro(new FourLettersFilter(new StopAnalyzer().tokenStream(null, text)), "FourLettersFilter");
 	}
 }
