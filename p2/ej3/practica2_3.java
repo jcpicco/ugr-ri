@@ -40,7 +40,7 @@ public class practica2_3{
    			.withTokenizer("standard")
    			.addTokenFilter("lowercase")
    			.addTokenFilter("apostrophe")
-   			.addTokenFilter("nGram","minGramSize","2","maxGramSize","2")
+   			.addTokenFilter("nGram","minGramSize","4","maxGramSize","4")
    			.build();
 
 		TokenStream stream = analyzer.tokenStream(null, text);

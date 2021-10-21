@@ -48,15 +48,19 @@ public class practica2_1{
         });
 
         PrintWriter writer = new PrintWriter(new File("./csv/" + nombre_archivo.substring(0, nombre_archivo.lastIndexOf("."))+"-" + nombre_analizador + ".csv"));
-        writer.write("Text;Size\n");
+        writer.write("Id;Text;Size\n");
+
+		int c = 0;
 
         for(Map.Entry<String, Integer> i : words){
-          writer.write(i.getKey()+";"+i.getValue()+"\n");
+		  c++;
+          writer.write(c+";"+i.getKey()+";"+i.getValue()+"\n");
         }
         
         writer.close();
 
         System.out.println("Finalizado procesamiento del analizador " + nombre_analizador + "analyzer");
+		System.out.println("Número de tokens: "+c+"\n");
 	}
 
 	public static void main(String[] args) throws IOException{
@@ -77,7 +81,7 @@ public class practica2_1{
 
         Analizador(new WhitespaceAnalyzer(), "whitespace", text, nombre_archivo);
         Analizador(new SimpleAnalyzer(), "simple", text, nombre_archivo);
-        Analizador(new StopAnalyzer(), "stop", text, nombre_archivo);
+        Analizador(new StopAnalyzer(StandardAnalyzer.ENGLISH_STOP_WORDS_SET), "stop", text, nombre_archivo);
         Analizador(new StandardAnalyzer(), "standard", text, nombre_archivo);
 	}
 }
