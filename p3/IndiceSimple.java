@@ -1,5 +1,13 @@
+package com.mkyong.io.csv.opencsv;
+import com.opencsv.CSVReader;
+import java.io.FileReader;
+import com.opencsv.exceptions.CsvException;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class IndiceSimple {
     String indexPath = "./index";
@@ -14,31 +22,28 @@ public class IndiceSimple {
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         // iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
-        Directory dir = FSDirectory.open(Paths.get(indexPath));
+        Directory dir = FSDirectory.open(Pathss.get(indexPath));
         writer = new IndexWriter(dir, iwc);
     }
 
     public void indexarDocumentos() {
-        for(elementos d : docPath){
-            String cadena = leerDocumento(d);
-            Documento doc = new Document();
-            Integer start = ...;
-            Integer end = ...;
-            String aux = cadena.substring(start, end);
-            Integer valor = Integer.decode(aux);
+        CSVReader reader = new CSVReader(new FileReader("scopus1.csv"));
+        List<String[]> r = reader.readAll();
+        r.forEach(x -> System.out.println(Arrays.toString(x)));
+        Document doc = new Document();
+        Integer start = ...;
+        Integer end = ...;
+        String aux = cadena.substring(start, end);
+        Integer valor = Integer.decode(aux);
 
-            doc.add(new IntPoint("ID", valor));
-            doc.add(new StoreField("ID", valor));
+        doc.add(new IntPoint("ID", valor));
+        doc.add(new StoreField("ID", valor));
 
-            start = ...;
-            end = ...;
+        String cuerpo = cadena.substring(start, end);
 
-            String cuerpo = cadena.substring(start, end);
+        doc.add(new TextField("Body", cuerpo, Field.Store.YES));
 
-            doc.add(new TextField("Body", cuerpo, Field.Store.YES));
-
-            writer.addDocument(doc);
-        }
+        writer.addDocument(doc);
     }
 
     public void close() {
@@ -56,7 +61,7 @@ public class IndiceSimple {
         IndiceSimple baseline = new IndiceSimple( ... );
 
         baseline.configurarIndice(analyzer, similarity);
-        baseline.indexarDocumentos();
+        IndiceSimple.indexarDocumentos();
         baseline.close();
 
     }
