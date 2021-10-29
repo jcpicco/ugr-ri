@@ -27,7 +27,7 @@ public class ejemplo {
         
         iwc.setSimilarity(similarity);
         // iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-        iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
         Directory dir = FSDirectory.open(Paths.get(indexPath));
         writer = new IndexWriter(dir, iwc);
@@ -35,42 +35,39 @@ public class ejemplo {
 
     public void indexarDocumentos() throws IOException, CsvException {
         CSVReader reader = new CSVReader(new FileReader("./scopus2.csv"));
-        List<String[]> r = reader.readAll();
-        // r.forEach(x -> System.out.println(Arrays.toString(x)));
+        reader.skip(1);
+        String[] r = reader.readNext();
 
-        Document doc = new Document();
-
-        for(int i = 1 ; i < r.size() ; i++){
-            doc.add(new TextField(r.get(0)[0], r.get(i)[0], Field.Store.YES));          //autor(es)
-            doc.add(new TextField(r.get(0)[1], r.get(i)[1], Field.Store.YES));          //id autor(es)
-            doc.add(new TextField(r.get(0)[2], r.get(i)[2], Field.Store.YES));          //título
-            doc.add(new IntPoint(r.get(0)[3], Integer.parseInt(r.get(i)[3])));          //año
-            doc.add(new StoredField(r.get(0)[3], Integer.parseInt(r.get(i)[3])));
-            doc.add(new TextField(r.get(0)[4], r.get(i)[4], Field.Store.YES));          //título fuente
-            doc.add(new StoredField(r.get(0)[5], r.get(i)[5]));                         //volumen
-            doc.add(new StoredField(r.get(0)[6], r.get(i)[6]));                         //número revistad
-            doc.add(new StoredField(r.get(0)[7], r.get(i)[7]));                         //número artículo
-            doc.add(new StoredField(r.get(0)[8], r.get(i)[8]));                         //página inicio
-            doc.add(new StoredField(r.get(0)[9], r.get(i)[9]));                         //página fin
-            doc.add(new StoredField(r.get(0)[10], r.get(i)[10]));        //número páginas
-            if(!r.get(i)[11].equals("")){
-                System.out.print(" || "+Integer.parseInt(r.get(i)[11]));
-                doc.add(new SortedNumericDocValuesField(r.get(0)[11], Long.parseLong(r.get(i)[11])));//número citas
-                // doc.add(new IntPoint(r.get(0)[11], Integer.parseInt(r.get(i)[11])));//número citas
-                doc.add(new StoredField(r.get(0)[11], Long.parseLong(r.get(i)[11])));   
+        do{
+            Document doc = new Document();
+            doc.add(new TextField("author", r[0], Field.Store.YES));
+            doc.add(new TextField("author_id", r[1], Field.Store.YES));
+            doc.add(new TextField("title", r[2], Field.Store.YES));
+            doc.add(new IntPoint("year", Integer.parseInt(r[3])));
+            doc.add(new StoredField("year", Integer.parseInt(r[3])));
+            doc.add(new TextField("title_source", r[4], Field.Store.YES));
+            doc.add(new StoredField("volume", r[5]));
+            doc.add(new StoredField("issue", r[6]));
+            doc.add(new StoredField("article_number", r[7]));
+            doc.add(new StoredField("page_start", r[8]));
+            doc.add(new StoredField("page_end", r[9]));
+            doc.add(new StoredField("page_count", r[10]));
+            if(!r[11].equals("")){
+                doc.add(new SortedNumericDocValuesField("cited_by", Long.parseLong(r[11])));
+                doc.add(new StoredField("cited_by", Long.parseLong(r[11])));   
             }
-            doc.add(new StringField(r.get(0)[12], r.get(i)[12], Field.Store.YES));      //DOI
-            doc.add(new StringField(r.get(0)[13], r.get(i)[13], Field.Store.YES));      //link
-            doc.add(new TextField(r.get(0)[14], r.get(i)[14], Field.Store.YES));        //afiliaciones
-            doc.add(new TextField(r.get(0)[16], r.get(i)[16], Field.Store.YES));        //abstract
-            doc.add(new TextField(r.get(0)[17], r.get(i)[17], Field.Store.NO));        //keywords autor
-            doc.add(new TextField(r.get(0)[18], r.get(i)[18], Field.Store.NO));        //keywords índice
-            doc.add(new StringField(r.get(0)[19], r.get(i)[19], Field.Store.NO));      //tipo documento
-            doc.add(new StoredField(r.get(0)[20], r.get(i)[20]));                       //fase publicación
-            doc.add(new StringField(r.get(0)[23], r.get(i)[23], Field.Store.YES));      //EID
-        }
-
-        writer.addDocument(doc);
+            doc.add(new StringField("doi", r[12], Field.Store.YES));
+            doc.add(new StringField("link", r[13], Field.Store.YES));
+            doc.add(new TextField("affiliations", r[14], Field.Store.YES));
+            doc.add(new TextField("description", r[16], Field.Store.YES));
+            doc.add(new TextField("author_keywords", r[17], Field.Store.NO));
+            doc.add(new TextField("index_keywords", r[18], Field.Store.NO));
+            doc.add(new StringField("doc_type", r[19], Field.Store.NO));
+            doc.add(new StoredField("public_status", r[20]));
+            doc.add(new StringField("eid", r[23], Field.Store.YES));
+            writer.addDocument(doc);
+            r = reader.readNext();
+        }while(r!=null);
     }
 
     public void close() throws IOException, CsvException {
