@@ -34,9 +34,9 @@ public class ejemplo {
     }
 
     public void indexarDocumentos() throws IOException, CsvException {
-        CSVReader reader = new CSVReader(new FileReader("./scopus1.csv"));
+        CSVReader reader = new CSVReader(new FileReader("./scopus2.csv"));
         List<String[]> r = reader.readAll();
-        r.forEach(x -> System.out.println(Arrays.toString(x)));
+        // r.forEach(x -> System.out.println(Arrays.toString(x)));
 
         Document doc = new Document();
 
@@ -45,26 +45,29 @@ public class ejemplo {
             doc.add(new TextField(r.get(0)[1], r.get(i)[1], Field.Store.YES));          //id autor(es)
             doc.add(new TextField(r.get(0)[2], r.get(i)[2], Field.Store.YES));          //título
             doc.add(new IntPoint(r.get(0)[3], Integer.parseInt(r.get(i)[3])));          //año
+            doc.add(new StoredField(r.get(0)[3], Integer.parseInt(r.get(i)[3])));
             doc.add(new TextField(r.get(0)[4], r.get(i)[4], Field.Store.YES));          //título fuente
-            doc.add(new IntPoint(r.get(0)[5], Integer.parseInt(r.get(i)[5])));          //volumen
-            doc.add(new IntPoint(r.get(0)[6], Integer.parseInt(r.get(i)[6])));          //número revista
-            doc.add(new IntPoint(r.get(0)[7], Integer.parseInt(r.get(i)[7])));          //número artículo
-            doc.add(new IntPoint(r.get(0)[8], Integer.parseInt(r.get(i)[8])));          //página inicio
-            doc.add(new IntPoint(r.get(0)[9], Integer.parseInt(r.get(i)[9])));          //página fin
-            doc.add(new IntPoint(r.get(0)[10], Integer.parseInt(r.get(i)[10])));        //número páginas
-            doc.add(new IntPoint(r.get(0)[11], Integer.parseInt(r.get(i)[11])));        //número citas
+            doc.add(new StoredField(r.get(0)[5], r.get(i)[5]));                         //volumen
+            doc.add(new StoredField(r.get(0)[6], r.get(i)[6]));                         //número revistad
+            doc.add(new StoredField(r.get(0)[7], r.get(i)[7]));                         //número artículo
+            doc.add(new StoredField(r.get(0)[8], r.get(i)[8]));                         //página inicio
+            doc.add(new StoredField(r.get(0)[9], r.get(i)[9]));                         //página fin
+            doc.add(new StoredField(r.get(0)[10], r.get(i)[10]));        //número páginas
+            if(!r.get(i)[11].equals("")){
+                System.out.print(" || "+Integer.parseInt(r.get(i)[11]));
+                doc.add(new SortedNumericDocValuesField(r.get(0)[11], Long.parseLong(r.get(i)[11])));//número citas
+                // doc.add(new IntPoint(r.get(0)[11], Integer.parseInt(r.get(i)[11])));//número citas
+                doc.add(new StoredField(r.get(0)[11], Long.parseLong(r.get(i)[11])));   
+            }
             doc.add(new StringField(r.get(0)[12], r.get(i)[12], Field.Store.YES));      //DOI
             doc.add(new StringField(r.get(0)[13], r.get(i)[13], Field.Store.YES));      //link
             doc.add(new TextField(r.get(0)[14], r.get(i)[14], Field.Store.YES));        //afiliaciones
-            //doc.add();      //autores con afiliaciones
             doc.add(new TextField(r.get(0)[16], r.get(i)[16], Field.Store.YES));        //abstract
-            doc.add(new TextField(r.get(0)[17], r.get(i)[17], Field.Store.YES));        //keywords autor
-            doc.add(new TextField(r.get(0)[18], r.get(i)[18]. Field.Store.YES));        //keywords índice
-            doc.add(new StringField(r.get(0)[19], r.get(i)[19], Field.Store.YES));      //tipo documento
-            doc.add(new StringField(r.get(0)[20], r.get(i)[20], Field.Store.YES));      //fase publicación
-            doc.add(new StringField(r.get(0)[21], r.get(i)[21], Field.Store.YES));      //open access?
-            doc.add(new StringField(r.get(0)[22], r.get(i)[22], Field.Store.YES));      //fuente
-            doc.add(new StringField(r.get(0)[23], r.get(i)[23]. Field.Store.YES));      //EID
+            doc.add(new TextField(r.get(0)[17], r.get(i)[17], Field.Store.NO));        //keywords autor
+            doc.add(new TextField(r.get(0)[18], r.get(i)[18], Field.Store.NO));        //keywords índice
+            doc.add(new StringField(r.get(0)[19], r.get(i)[19], Field.Store.NO));      //tipo documento
+            doc.add(new StoredField(r.get(0)[20], r.get(i)[20]));                       //fase publicación
+            doc.add(new StringField(r.get(0)[23], r.get(i)[23], Field.Store.YES));      //EID
         }
 
         writer.addDocument(doc);
