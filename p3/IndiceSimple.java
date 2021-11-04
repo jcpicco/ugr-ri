@@ -68,7 +68,7 @@ public class indiceSimple {
         do{
             Document doc = new Document();
             doc.add(new TextField("author", r[0], Field.Store.YES));
-            if(!r[3].equals("id") || !r[3].equals("available") || !r[3].equals("author")){
+            if(!r[3].equals("[No author id available]")){
                 doc.add(new TextField("author_id", r[1], Field.Store.YES));
             }
             doc.add(new TextField("title", r[2], Field.Store.YES));
