@@ -17,6 +17,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
+import org.apache.lucene.analysis.standard.ClassicAnalyzer;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,17 +36,15 @@ public class indiceSimple {
 
     indiceSimple(){
         analyzerPerField.put("author", new SimpleAnalyzer());
-        analyzerPerField.put("author_id", new StopAnalyzer(EnglishAnalyzer.ENGLISH_STOP_WORDS_SET));
+        analyzerPerField.put("author_id", new ClassicAnalyzer());
         analyzerPerField.put("title", new SimpleAnalyzer());
         analyzerPerField.put("source_title", new SimpleAnalyzer());
         analyzerPerField.put("doi", new KeywordAnalyzer());
-        analyzerPerField.put("link", new StandardAnalyzer());
         analyzerPerField.put("affiliations", new SimpleAnalyzer());
         analyzerPerField.put("abstract", new EnglishAnalyzer());
         analyzerPerField.put("author_keywords", new SimpleAnalyzer());
         analyzerPerField.put("index_keywords", new SimpleAnalyzer());
         analyzerPerField.put("doc_type", new KeywordAnalyzer());
-        analyzerPerField.put("eid", new KeywordAnalyzer());
     }
 
     public void configurarIndice(Analyzer analyzer, Similarity similarity, String path) throws IOException {
@@ -85,14 +84,14 @@ public class indiceSimple {
                     doc.add(new StoredField("cited_by", Long.parseLong(r[11])));   
                 }
                 doc.add(new StringField("doi", r[12], Field.Store.YES));
-                doc.add(new StringField("link", r[13], Field.Store.YES));
+                doc.add(new StoredField("link", r[13]));
                 doc.add(new TextField("affiliations", r[14], Field.Store.YES));
                 doc.add(new TextField("abstract", r[16], Field.Store.YES));
                 doc.add(new TextField("author_keywords", r[17], Field.Store.NO));
                 doc.add(new TextField("index_keywords", r[18], Field.Store.NO));
                 doc.add(new StringField("doc_type", r[19], Field.Store.NO));
                 doc.add(new StoredField("public_status", r[20]));
-                doc.add(new StringField("eid", r[23], Field.Store.YES));
+                doc.add(new StoredField("eid", r[23]));
                 writer.addDocument(doc);
                 r = reader.readNext();
             }while(r!=null);
