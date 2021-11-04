@@ -70,8 +70,10 @@ public class indiceSimple {
                 doc.add(new TextField("author", r[0], Field.Store.YES));
                 doc.add(new TextField("author_id", r[1], Field.Store.YES));
                 doc.add(new TextField("title", r[2], Field.Store.YES));
-                doc.add(new IntPoint("year", Integer.parseInt(r[3])));
-                doc.add(new StoredField("year", Integer.parseInt(r[3])));
+                if(!r[3].equals("")){
+                    doc.add(new SortedNumericDocValuesField("year", Long.parseLong(r[3])));
+                    doc.add(new StoredField("year", Integer.parseInt(r[3])));
+                }
                 doc.add(new TextField("source_title", r[4], Field.Store.YES));
                 doc.add(new StoredField("volume", r[5]));
                 doc.add(new StoredField("issue", r[6]));
