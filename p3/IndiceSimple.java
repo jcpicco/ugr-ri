@@ -47,26 +47,30 @@ public class indiceSimple {
         analyzerPerField.put("doc_type", new KeywordAnalyzer());
     }
 
-    public void configurarIndice(Analyzer analyzer, Similarity similarity, String path) throws IOException {
+    public void configurarIndice(Analyzer analyzer, Similarity similarity) throws IOException {
         PerFieldAnalyzerWrapper analyzerWrapper = new PerFieldAnalyzerWrapper(analyzer, analyzerPerField);
         
         IndexWriterConfig iwc = new IndexWriterConfig(analyzerWrapper);
         
         iwc.setSimilarity(similarity);
-        // iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
-        Directory dir = FSDirectory.open(Paths.get(indexPath+"/"+path));
+        Directory dir = FSDirectory.open(Paths.get(indexPath));
         writer = new IndexWriter(dir, iwc);
     }
 
     public void indexarDocumentos(File archivo) throws IOException, CsvException {
-        CSVReader reader = new CSVReader(new FileReader(docPath+"/"+archivo.getName()));
+        CSVReader reader = new CSVReader(new FileReader(docPath+"/"+archivo.getName()));    
         reader.skip(1);
         String[] r = reader.readNext();
-        
-        do{
+        System.out.println("Archivo "+archivo.getName());
+
+        do{ 
             Document doc = new Document();
+            doc.add(new TextField(  "file_name",
+                                    archivo.getName().substring(0, archivo.getName().lastIndexOf(".")),
+                                    Field.Store.YES));
+            doc.add(new StoredField("file_dir", docPath+"/"+archivo.getName()));
             doc.add(new TextField("author", r[0], Field.Store.YES));
             if(!r[1].equals("[No author id available]")){ // !r[1].equals("[No author id available]")
                 doc.add(new TextField("author_id", r[1], Field.Store.YES));
@@ -99,8 +103,6 @@ public class indiceSimple {
             writer.addDocument(doc);
             r = reader.readNext();
         }while(r!=null);
-
-        System.out.println("Índice guardado en: "+indexPath+"/"+archivo.getName().substring(0, archivo.getName().lastIndexOf(".")));
     }
 
     public void close() throws IOException, CsvException {
@@ -119,11 +121,11 @@ public class indiceSimple {
         Similarity similarity = new ClassicSimilarity();
         indiceSimple baseline = new indiceSimple();
 
+        baseline.configurarIndice(analyzer, similarity);
         for(File archivo : archivos){
-            baseline.configurarIndice(analyzer, similarity, archivo.getName().substring(0, archivo.getName().lastIndexOf(".")));
             baseline.indexarDocumentos(archivo);
-            baseline.close();
         }
+        baseline.close();
     }
 }
 
