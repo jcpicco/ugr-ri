@@ -39,7 +39,6 @@ public class indiceSimple {
         analyzerPerField.put("author_id", new ClassicAnalyzer());
         analyzerPerField.put("title", new SimpleAnalyzer());
         analyzerPerField.put("source_title", new SimpleAnalyzer());
-        analyzerPerField.put("doi", new KeywordAnalyzer());
         analyzerPerField.put("affiliations", new SimpleAnalyzer());
         analyzerPerField.put("abstract", new EnglishAnalyzer());
         analyzerPerField.put("author_keywords", new SimpleAnalyzer());
@@ -91,7 +90,7 @@ public class indiceSimple {
                 doc.add(new SortedNumericDocValuesField("cited_by", Long.parseLong(r[11])));
                 doc.add(new StoredField("cited_by", Long.parseLong(r[11])));   
             }
-            doc.add(new StringField("doi", r[12], Field.Store.YES));
+            doc.add(new StoredField("doi", r[12]));
             doc.add(new StoredField("link", r[13]));
             doc.add(new TextField("affiliations", r[14], Field.Store.YES));
             doc.add(new TextField("abstract", r[16], Field.Store.YES));
