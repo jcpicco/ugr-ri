@@ -28,12 +28,13 @@ public class buscador {
                 String line = in.readLine();
 
                 if(line==null || line.length()==-1) break;
-
+                
                 line = line.trim();
 
                 if(line.length()==0) break;
 
                 Query query;
+                
                 try{
                     query = parser.parse(line);
                 } catch(org.apache.lucene.queryparser.classic.ParseException e){

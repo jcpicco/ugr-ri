@@ -36,14 +36,12 @@ public class indiceSimple {
 
     indiceSimple(){
         analyzerPerField.put("author", new SimpleAnalyzer());
-        analyzerPerField.put("author_id", new ClassicAnalyzer());
         analyzerPerField.put("title", new SimpleAnalyzer());
         analyzerPerField.put("source_title", new SimpleAnalyzer());
         analyzerPerField.put("affiliations", new SimpleAnalyzer());
         analyzerPerField.put("abstract", new EnglishAnalyzer());
         analyzerPerField.put("author_keywords", new SimpleAnalyzer());
         analyzerPerField.put("index_keywords", new SimpleAnalyzer());
-        analyzerPerField.put("doc_type", new KeywordAnalyzer());
     }
 
     public void configurarIndice(Analyzer analyzer, Similarity similarity) throws IOException {
@@ -71,9 +69,7 @@ public class indiceSimple {
                                     Field.Store.YES));
             doc.add(new StoredField("file_dir", docPath+"/"+archivo.getName()));
             doc.add(new TextField("author", r[0], Field.Store.YES));
-            if(!r[1].equals("[No author id available]")){ // !r[1].equals("[No author id available]")
-                doc.add(new TextField("author_id", r[1], Field.Store.YES));
-            }
+            doc.add(new StoredField("author_id", r[1]));
             doc.add(new TextField("title", r[2], Field.Store.YES));
             if(!r[3].equals("")){
                 doc.add(new SortedNumericDocValuesField("year", Long.parseLong(r[3])));
@@ -96,7 +92,7 @@ public class indiceSimple {
             doc.add(new TextField("abstract", r[16], Field.Store.YES));
             doc.add(new TextField("author_keywords", r[17], Field.Store.NO));
             doc.add(new TextField("index_keywords", r[18], Field.Store.NO));
-            doc.add(new StringField("doc_type", r[19], Field.Store.NO));
+            doc.add(new StoredField("doc_type", r[19]));
             doc.add(new StoredField("public_status", r[20]));
             doc.add(new StoredField("eid", r[23]));
             writer.addDocument(doc);
