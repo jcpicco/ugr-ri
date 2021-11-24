@@ -10,6 +10,7 @@ import org.apache.lucene.document.*;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.*;
+import org.apache.lucene.index.Term;
 
 import java.nio.file.Paths;
 import java.nio.charset.*;
@@ -36,13 +37,13 @@ import org.apache.lucene.search.IndexSearcher;
 public class buscador {
     String indexPath = "./index";
     Boolean busquedaCampos[] = new Boolean[]{   false, //author
-                                        false, //title
-                                        false, //source_title
-                                        false, //affiliations
-                                        false, //abstract
-                                        false, //author_keywords
-                                        false  //index_keywords
-                                    };
+                                                false, //title
+                                                false, //source_title
+                                                false, //affiliations
+                                                false, //abstract
+                                                false, //author_keywords
+                                                false  //index_keywords
+                                            };
 
     public void indexSearch(Analyzer analyzer, Similarity similarity){
         IndexReader reader = null;
@@ -57,67 +58,80 @@ public class buscador {
             in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
             QueryParser parser = new QueryParser("Cuerpo", analyzer);
 
+            Query query;
+            String line = "";
+
             while(true){
-                // System.out.println("Consulta por campos?: ");
-                // if(in.readLine()=="si"){
+                System.out.println("\nConsulta por campos?: ");
+
+                if(in.readLine().equals("si")){
                 
-                //     String campos = in.readLine();
-                //     String camposArray[] = campos.split(" ");
+                    String campos = in.readLine();
+                    String camposArray[] = campos.split(" ");
+                    query = new MatchAllDocsQuery();
+                }
+                else{
+                    // line = in.readLine();
+                    line = "occlusal stress,due";
+                    String lineArray[] = line.split(",");
+                    PhraseQuery pq;
 
-                //     for(String c : camposArray){
-                //         if(c.equals("author")) busquedaCampos[0] = true;
+                    if(lineArray.length>1){
+                        BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
+                        BooleanClause bc;
+                        BooleanQuery bq;
 
-                //         if(c.equals("title")) busquedaCampos[1] = true;
+                        for(String qaux : lineArray){
+                            System.out.println(qaux);
+                            String aux[] = qaux.split(" ");
+                            PhraseQuery.Builder builder = new PhraseQuery.Builder();
 
-                //         if(c.equals("source_title")) busquedaCampos[2] = true;
+                            for(String q2aux : aux){
+                                builder.add(new Term("abstract", q2aux));
+                            }
 
-                //         if(c.equals("affiliations")) busquedaCampos[3] = true;
+                            pq = builder.build();
+                            Term[] terms = pq.getTerms();
 
-                //         if(c.equals("abstract")) busquedaCampos[4] = true;
+                            for(Term term : terms)
+                                System.out.println(term.toString());
 
-                //         if(c.equals("author_keywords")) busquedaCampos[5] = true;
+                            bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
+                            bqbuilder.add(bc);
+                        }
 
-                //         if(c.equals("index_keywords")) busquedaCampos[6] = true;
-                //     }
-                // }
+                        bq = bqbuilder.build();
+                        query = bq;
+                        
+                    } else {
+                        String aux[] = lineArray[0].split(" ");
+                        PhraseQuery.Builder builder = new PhraseQuery.Builder();
 
-                String line = in.readLine();
+                        for(String qaux : aux){
+                            builder.add(new Term("abstract", qaux));
+                        }
 
-                // if(line==null || line.length()==-1) break;
-                
-                // line = line.trim();
-
-                // if(line.length()==0) break;
-
-                // String lineArray[] = line.split(" ");
-
-                Query query = new MatchAllDocsQuery();
-
-
-                
-                // try{
-                //     query = parser.parse(line);
-                // } catch(org.apache.lucene.queryparser.classic.ParseException e){
-                //     System.out.println("Error en la cadena consulta.");
-                //     continue;
-                // }
+                        pq = builder.build();
+                        query = pq;
+                    }
+                }
 
                 TopDocs results = searcher.search(query, 100);
                 ScoreDoc[] hits = results.scoreDocs;
 
                 long numTotalHits = results.totalHits.value;
                 System.out.println(numTotalHits+" documentos encontrados");
-                for(int j=0 ; j<hits.length ; j++){
-                    Document doc = searcher.doc(hits[j].doc);
-                    String author = doc.get("author");
-                    String title = doc.get("title");
-                    System.out.println("Estoy aquí");
+                // for(int j=0 ; j<hits.length ; j++){
+                //     Document doc = searcher.doc(hits[j].doc);
+                //     String author = doc.get("author");
+                //     String title = doc.get("title");
+                //     System.out.println("Estoy aquí");
 
-                    System.out.println("−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−");
-                    System.out.println("Título: "+title);
-                    System.out.println("Autor: "+author);
-                    System.out.println();
-                }
+                //     System.out.println("−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−");
+                //     System.out.println("Título: "+title);
+                //     System.out.println("Autor: "+author);
+                //     System.out.println();
+                // }
 
                 if(line.equals("")) break;
             }

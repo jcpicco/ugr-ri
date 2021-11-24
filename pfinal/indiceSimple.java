@@ -39,7 +39,7 @@ public class indiceSimple {
         analyzerPerField.put("title", new SimpleAnalyzer());
         analyzerPerField.put("source_title", new SimpleAnalyzer());
         analyzerPerField.put("affiliations", new SimpleAnalyzer());
-        analyzerPerField.put("abstract", new EnglishAnalyzer());
+        analyzerPerField.put("abstract", new SimpleAnalyzer());
         analyzerPerField.put("author_keywords", new SimpleAnalyzer());
         analyzerPerField.put("index_keywords", new SimpleAnalyzer());
     }
