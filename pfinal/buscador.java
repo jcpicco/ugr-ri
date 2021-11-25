@@ -58,7 +58,7 @@ public class buscador {
             in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
             QueryParser parser = new QueryParser("Cuerpo", analyzer);
 
-            Query query;
+            Query query = new MatchAllDocsQuery();
             String line = "";
 
             while(true){
@@ -68,18 +68,16 @@ public class buscador {
                 
                     String campos = in.readLine();
                     String camposArray[] = campos.split(" ");
-                    query = new MatchAllDocsQuery();
                 }
                 else{
                     // line = in.readLine();
                     line = "occlusal stress,due";
                     String lineArray[] = line.split(",");
-                    PhraseQuery pq;
 
                     if(lineArray.length>1){
                         BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
                         BooleanClause bc;
-                        BooleanQuery bq;
+                        PhraseQuery pq;
 
                         for(String qaux : lineArray){
                             System.out.println(qaux);
@@ -100,8 +98,7 @@ public class buscador {
                             bqbuilder.add(bc);
                         }
 
-                        bq = bqbuilder.build();
-                        query = bq;
+                        query = bqbuilder.build();
                         
                     } else {
                         String aux[] = lineArray[0].split(" ");
@@ -111,8 +108,7 @@ public class buscador {
                             builder.add(new Term("abstract", qaux));
                         }
 
-                        pq = builder.build();
-                        query = pq;
+                        query = builder.build();
                     }
                 }
 
