@@ -36,14 +36,59 @@ import org.apache.lucene.search.IndexSearcher;
 
 public class buscador {
     String indexPath = "./index";
-    Boolean busquedaCampos[] = new Boolean[]{   false, //author
-                                                false, //title
-                                                false, //source_title
-                                                false, //affiliations
-                                                false, //abstract
-                                                false, //author_keywords
-                                                false  //index_keywords
+    String busquedaCampos[] = new String[]  {   "author",
+                                                "title",
+                                                "source_title",
+                                                "affiliations",
+                                                "abstract",
+                                                "author_keywords",
+                                                "index_keywords",
+                                                "year"
                                             };
+
+    public Query defaultSearch(String line){
+        Query query = new MatchAllDocsQuery();
+        String lineArray[] = line.split(",");
+
+        if(lineArray.length>1){
+            BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
+            BooleanClause bc;
+            PhraseQuery pq;
+
+            for(String qaux : lineArray){
+                System.out.println(qaux);
+                String aux[] = qaux.split(" ");
+                PhraseQuery.Builder builder = new PhraseQuery.Builder();
+
+                for(String q2aux : aux){
+                    builder.add(new Term("abstract", q2aux));
+                }
+
+                pq = builder.build();
+                Term[] terms = pq.getTerms();
+
+                for(Term term : terms)
+                    System.out.println(term.toString());
+
+                bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
+                bqbuilder.add(bc);
+            }
+
+            query = bqbuilder.build();
+            
+        } else {
+            String aux[] = lineArray[0].split(" ");
+            PhraseQuery.Builder builder = new PhraseQuery.Builder();
+
+            for(String qaux : aux){
+                builder.add(new Term("abstract", qaux));
+            }
+
+            query = builder.build();
+        }
+
+        return query;
+    }
 
     public void indexSearch(Analyzer analyzer, Similarity similarity){
         IndexReader reader = null;
@@ -65,52 +110,63 @@ public class buscador {
                 System.out.println("\nConsulta por campos?: ");
 
                 if(in.readLine().equals("si")){
-                
-                    String campos = in.readLine();
-                    String camposArray[] = campos.split(" ");
-                }
-                else{
-                    // line = in.readLine();
-                    line = "occlusal stress,due";
-                    String lineArray[] = line.split(",");
+                    String[] campos = new String[8];
 
-                    if(lineArray.length>1){
-                        BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
-                        BooleanClause bc;
-                        PhraseQuery pq;
+                    for(int i = 0; i < campos.length; i++){
+                        System.out.print(busquedaCampos[i]+": ");
+                        campos[i] = in.readLine();
+                    }
 
-                        for(String qaux : lineArray){
-                            System.out.println(qaux);
-                            String aux[] = qaux.split(" ");
-                            PhraseQuery.Builder builder = new PhraseQuery.Builder();
+                    BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
 
-                            for(String q2aux : aux){
-                                builder.add(new Term("abstract", q2aux));
+                    for(int i = 0; i < campos.length-1; i++){
+                        if(!campos[i].isEmpty()){
+                            String lineArray[] = campos[i].split(",");
+
+                            if(lineArray.length>1){
+                                BooleanClause bc;
+                                PhraseQuery pq;
+                    
+                                for(String qaux : lineArray){
+                                    System.out.println(qaux);
+                                    String aux[] = qaux.split(" ");
+                                    PhraseQuery.Builder builder = new PhraseQuery.Builder();
+                    
+                                    for(String q2aux : aux){
+                                        builder.add(new Term(busquedaCampos[i], q2aux));
+                                    }
+                    
+                                    pq = builder.build();
+                                    Term[] terms = pq.getTerms();
+                    
+                                    for(Term term : terms)
+                                        System.out.println(term.toString());
+                    
+                                    bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
+                                    bqbuilder.add(bc);
+                                }
                             }
+                            // else {
+                            //     String aux[] = lineArray[0].split(" ");
+                            //     PhraseQuery.Builder builder = new PhraseQuery.Builder();
+                    
+                            //     for(String qaux : aux){
+                            //         builder.add(new Term("abstract", qaux));
+                            //     }
+                    
+                            //     query = builder.build();
+                            // }
 
-                            pq = builder.build();
-                            Term[] terms = pq.getTerms();
-
-                            for(Term term : terms)
-                                System.out.println(term.toString());
-
-                            bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
-                            bqbuilder.add(bc);
+                            query = bqbuilder.build();
                         }
-
-                        query = bqbuilder.build();
-                        
-                    } else {
-                        String aux[] = lineArray[0].split(" ");
-                        PhraseQuery.Builder builder = new PhraseQuery.Builder();
-
-                        for(String qaux : aux){
-                            builder.add(new Term("abstract", qaux));
-                        }
-
-                        query = builder.build();
                     }
                 }
+                else{
+                    line = "occlusal stress,due";
+                    // line = in.readLine();
+                    query = defaultSearch(line);
+                }
+                    
 
                 TopDocs results = searcher.search(query, 100);
                 ScoreDoc[] hits = results.scoreDocs;
