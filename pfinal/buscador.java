@@ -12,6 +12,8 @@ import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.util.BytesRef;
+import org.apache.lucene.analysis.core.SimpleAnalyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 
 import java.nio.file.Paths;
 import java.nio.charset.*;
@@ -48,9 +50,10 @@ public class buscador {
                                                 "year"
                                             };
 
-    public Query multifieldSearch(String[] campos){
+    public Query multifieldSearch(String[] campos) throws ParseException{
         BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
         BooleanClause bc;
+        Query qaux;
         Query query = new MatchAllDocsQuery();
 
         for(int i = 0; i < campos.length; i++){
@@ -60,32 +63,19 @@ public class buscador {
                     Query rango = IntPoint.newRangeQuery(busquedaCampos[i], Integer.parseInt(lineArray[0]), Integer.parseInt(lineArray[1]));
                     bc = new BooleanClause(rango, BooleanClause.Occur.MUST);
                     bqbuilder.add(bc);
+                } else if(i == 4){
+                    QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
+                    qaux = parser.parse(campos[i]);
+                    bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
+                    System.out.println(qaux.toString());
+                    bqbuilder.add(bc);
                 }
                 else{
-                    String lineArray[] = campos[i].split(",");
-
-                    if(lineArray.length>1){
-                        PhraseQuery pq;
-            
-                        for(String qaux : lineArray){
-                            System.out.println(qaux);
-                            String aux[] = qaux.split(" ");
-                            PhraseQuery.Builder builder = new PhraseQuery.Builder();
-            
-                            for(String q2aux : aux){
-                                builder.add(new Term(busquedaCampos[i], q2aux));
-                            }
-            
-                            pq = builder.build();
-                            Term[] terms = pq.getTerms();
-            
-                            for(Term term : terms)
-                                System.out.println(term.toString());
-            
-                            bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
-                            bqbuilder.add(bc);
-                        }
-                    }
+                    QueryParser parser = new QueryParser(busquedaCampos[i], new SimpleAnalyzer());
+                    qaux = parser.parse(campos[i]);
+                    bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
+                    System.out.println(qaux.toString());
+                    bqbuilder.add(bc);
                 }
 
                 query = bqbuilder.build();
@@ -95,50 +85,21 @@ public class buscador {
         return query;
     }
 
-    Query singlefieldSearch(String campo_actual, String busqueda, Integer id){
-        BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
-        BooleanClause bc;
-        Query query = new MatchAllDocsQuery();
+    public Query singlefieldSearch(String campo_actual, String busqueda, Integer id) throws ParseException{
+        Query query;
 
         if(campo_actual.equals("year")){
             String lineArray[] = busqueda.split("-");
             query = IntPoint.newRangeQuery(busquedaCampos[id], Integer.parseInt(lineArray[0]), Integer.parseInt(lineArray[1]));
-        } else{
-            String lineArray[] = busqueda.split(",");
-            if(lineArray.length>1){
-                PhraseQuery pq;
-
-                for(String qaux : lineArray){
-                    System.out.println(qaux);
-                    String aux[] = qaux.split(" ");
-                    PhraseQuery.Builder builder = new PhraseQuery.Builder();
-
-                    for(String q2aux : aux){
-                        builder.add(new Term(campo_actual, q2aux));
-                    }
-
-                    pq = builder.build();
-                    Term[] terms = pq.getTerms();
-
-                    for(Term term : terms)
-                        System.out.println(term.toString());
-
-                    bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
-                    bqbuilder.add(bc);
-                }
-
-                query = bqbuilder.build();
-                
-            } else {
-                String aux[] = lineArray[0].split(" ");
-                PhraseQuery.Builder builder = new PhraseQuery.Builder();
-
-                for(String qaux : aux){
-                    builder.add(new Term(campo_actual, qaux));
-                }
-
-                query = builder.build();
-            }
+        } else if(campo_actual.equals("abstract")){
+            QueryParser parser = new QueryParser(campo_actual, new EnglishAnalyzer());
+            query = parser.parse(busqueda);
+            System.out.println(query.toString());
+        }
+        else{
+            QueryParser parser = new QueryParser(campo_actual, new SimpleAnalyzer());
+            query = parser.parse(busqueda);
+            System.out.println(query.toString());
         }
 
         return query;
@@ -160,12 +121,6 @@ public class buscador {
             String line = "";
 
             //Analyzer abstract_analyzer = new EnglishAnalyzer(ENGLISH_STOP_WORDS);
-
-            String s = in.readLine();
-            QueryParser parser = new QueryParser("abstract", new StandardAnalyzer());
-            Query q1;
-            q1 = parser.parse(s);
-            System.out.println(q1.toString());
 
             while(true){
 
@@ -225,7 +180,7 @@ public class buscador {
     }
 
     public static void main(String[] args) throws ParseException{
-        Analyzer analyzer = new StandardAnalyzer();
+        Analyzer analyzer = new SimpleAnalyzer();
         Similarity similarity = new ClassicSimilarity();
         // Similarity similarity = new LMDirichletSimilarity();
         // Similarity similarity = new BM25Similarity();
