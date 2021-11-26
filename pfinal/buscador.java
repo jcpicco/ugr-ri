@@ -11,6 +11,7 @@ import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.util.BytesRef;
 
 import java.nio.file.Paths;
 import java.nio.charset.*;
@@ -30,6 +31,7 @@ import org.apache.lucene.document.*;
 
 import org.apache.lucene.search.Query;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.IndexSearcher;
 
 
@@ -46,51 +48,103 @@ public class buscador {
                                                 "year"
                                             };
 
-    public Query defaultSearch(String line){
+    public Query multifieldSearch(String[] campos){
+        BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
+        BooleanClause bc;
         Query query = new MatchAllDocsQuery();
-        String lineArray[] = line.split(",");
 
-        if(lineArray.length>1){
-            BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
-            BooleanClause bc;
-            PhraseQuery pq;
+        for(int i = 0; i < campos.length; i++){
+            if(!campos[i].isEmpty()){
+                if(i == campos.length - 1){
+                    String lineArray[] = campos[i].split("-");
+                    Query rango = IntPoint.newRangeQuery(busquedaCampos[i], Integer.parseInt(lineArray[0]), Integer.parseInt(lineArray[1]));
+                    bc = new BooleanClause(rango, BooleanClause.Occur.MUST);
+                    bqbuilder.add(bc);
+                }
+                else{
+                    String lineArray[] = campos[i].split(",");
 
-            for(String qaux : lineArray){
-                System.out.println(qaux);
-                String aux[] = qaux.split(" ");
-                PhraseQuery.Builder builder = new PhraseQuery.Builder();
-
-                for(String q2aux : aux){
-                    builder.add(new Term("abstract", q2aux));
+                    if(lineArray.length>1){
+                        PhraseQuery pq;
+            
+                        for(String qaux : lineArray){
+                            System.out.println(qaux);
+                            String aux[] = qaux.split(" ");
+                            PhraseQuery.Builder builder = new PhraseQuery.Builder();
+            
+                            for(String q2aux : aux){
+                                builder.add(new Term(busquedaCampos[i], q2aux));
+                            }
+            
+                            pq = builder.build();
+                            Term[] terms = pq.getTerms();
+            
+                            for(Term term : terms)
+                                System.out.println(term.toString());
+            
+                            bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
+                            bqbuilder.add(bc);
+                        }
+                    }
                 }
 
-                pq = builder.build();
-                Term[] terms = pq.getTerms();
-
-                for(Term term : terms)
-                    System.out.println(term.toString());
-
-                bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
-                bqbuilder.add(bc);
+                query = bqbuilder.build();
             }
-
-            query = bqbuilder.build();
-            
-        } else {
-            String aux[] = lineArray[0].split(" ");
-            PhraseQuery.Builder builder = new PhraseQuery.Builder();
-
-            for(String qaux : aux){
-                builder.add(new Term("abstract", qaux));
-            }
-
-            query = builder.build();
         }
 
         return query;
     }
 
-    public void indexSearch(Analyzer analyzer, Similarity similarity){
+    Query singlefieldSearch(String campo_actual, String busqueda, Integer id){
+        BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
+        BooleanClause bc;
+        Query query = new MatchAllDocsQuery();
+
+        if(campo_actual.equals("year")){
+            String lineArray[] = busqueda.split("-");
+            query = IntPoint.newRangeQuery(busquedaCampos[id], Integer.parseInt(lineArray[0]), Integer.parseInt(lineArray[1]));
+        } else{
+            String lineArray[] = busqueda.split(",");
+            if(lineArray.length>1){
+                PhraseQuery pq;
+
+                for(String qaux : lineArray){
+                    System.out.println(qaux);
+                    String aux[] = qaux.split(" ");
+                    PhraseQuery.Builder builder = new PhraseQuery.Builder();
+
+                    for(String q2aux : aux){
+                        builder.add(new Term(campo_actual, q2aux));
+                    }
+
+                    pq = builder.build();
+                    Term[] terms = pq.getTerms();
+
+                    for(Term term : terms)
+                        System.out.println(term.toString());
+
+                    bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
+                    bqbuilder.add(bc);
+                }
+
+                query = bqbuilder.build();
+                
+            } else {
+                String aux[] = lineArray[0].split(" ");
+                PhraseQuery.Builder builder = new PhraseQuery.Builder();
+
+                for(String qaux : aux){
+                    builder.add(new Term(campo_actual, qaux));
+                }
+
+                query = builder.build();
+            }
+        }
+
+        return query;
+    }
+
+    public void indexSearch(Analyzer analyzer, Similarity similarity) throws ParseException{
         IndexReader reader = null;
 
         try{
@@ -101,72 +155,43 @@ public class buscador {
 
             BufferedReader in = null;
             in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
-            QueryParser parser = new QueryParser("Cuerpo", analyzer);
 
             Query query = new MatchAllDocsQuery();
             String line = "";
 
+            //Analyzer abstract_analyzer = new EnglishAnalyzer(ENGLISH_STOP_WORDS);
+
+            String s = in.readLine();
+            QueryParser parser = new QueryParser("abstract", new StandardAnalyzer());
+            Query q1;
+            q1 = parser.parse(s);
+            System.out.println(q1.toString());
+
             while(true){
-                System.out.println("\nConsulta por campos?: ");
 
-                if(in.readLine().equals("si")){
-                    String[] campos = new String[8];
+                String[] campos = new String[8];
 
-                    for(int i = 0; i < campos.length; i++){
-                        System.out.print(busquedaCampos[i]+": ");
-                        campos[i] = in.readLine();
-                    }
+                for(int i = 0; i < campos.length; i++){
+                    System.out.print(busquedaCampos[i]+": ");
+                    campos[i] = in.readLine();
+                }
 
-                    BooleanQuery.Builder bqbuilder = new BooleanQuery.Builder();
+                int longitud = 0;
+                String campo_actual = "";
+                int id = -1;
 
-                    for(int i = 0; i < campos.length-1; i++){
-                        if(!campos[i].isEmpty()){
-                            String lineArray[] = campos[i].split(",");
-
-                            if(lineArray.length>1){
-                                BooleanClause bc;
-                                PhraseQuery pq;
-                    
-                                for(String qaux : lineArray){
-                                    System.out.println(qaux);
-                                    String aux[] = qaux.split(" ");
-                                    PhraseQuery.Builder builder = new PhraseQuery.Builder();
-                    
-                                    for(String q2aux : aux){
-                                        builder.add(new Term(busquedaCampos[i], q2aux));
-                                    }
-                    
-                                    pq = builder.build();
-                                    Term[] terms = pq.getTerms();
-                    
-                                    for(Term term : terms)
-                                        System.out.println(term.toString());
-                    
-                                    bc = new BooleanClause(pq, BooleanClause.Occur.MUST);
-                                    bqbuilder.add(bc);
-                                }
-                            }
-                            // else {
-                            //     String aux[] = lineArray[0].split(" ");
-                            //     PhraseQuery.Builder builder = new PhraseQuery.Builder();
-                    
-                            //     for(String qaux : aux){
-                            //         builder.add(new Term("abstract", qaux));
-                            //     }
-                    
-                            //     query = builder.build();
-                            // }
-
-                            query = bqbuilder.build();
-                        }
+                for(int i = 0; i < campos.length; i++){
+                    if(!campos[i].isEmpty()){
+                        longitud++;
+                        campo_actual = busquedaCampos[i];
+                        id = i;
                     }
                 }
-                else{
-                    line = "occlusal stress,due";
-                    // line = in.readLine();
-                    query = defaultSearch(line);
-                }
-                    
+
+                if(longitud > 1)
+                    query = multifieldSearch(campos);
+                else
+                    query = singlefieldSearch(campo_actual, campos[id], id);    
 
                 TopDocs results = searcher.search(query, 100);
                 ScoreDoc[] hits = results.scoreDocs;
@@ -199,7 +224,7 @@ public class buscador {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws ParseException{
         Analyzer analyzer = new StandardAnalyzer();
         Similarity similarity = new ClassicSimilarity();
         // Similarity similarity = new LMDirichletSimilarity();
