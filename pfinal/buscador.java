@@ -14,7 +14,17 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+
 import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyWriter;
+import org.apache.lucene.facet.FacetsConfig;
+import org.apache.lucene.facet.DrillDownQuery;
+import org.apache.lucene.facet.FacetsCollector;
+import org.apache.lucene.facet.Facets;
+import org.apache.lucene.facet.FacetResult;
+import org.apache.lucene.facet.LabelAndValue;
+import org.apache.lucene.facet.taxonomy.TaxonomyReader;
+import org.apache.lucene.facet.taxonomy.FastTaxonomyFacetCounts;
+import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyReader;
 
 import java.nio.file.Paths;
 import java.nio.charset.*;
@@ -104,7 +114,8 @@ public class buscador {
         try{
             reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
             IndexSearcher searcher = new IndexSearcher(reader);
-            TaxonomyReader taxoReader = new DirectoryTaxonomyWriter(taxoPath);
+            TaxonomyReader taxoReader = new DirectoryTaxonomyReader(FSDirectory.open(Paths.get(taxoPath)));
+            FacetsCollector fc = new FacetsCollector();
 
             searcher.setSimilarity(similarity);
 
@@ -142,8 +153,12 @@ public class buscador {
                 else
                     query = singlefieldSearch(campo_actual, campos[id], id);    
 
-                TopDocs results = searcher.search(query, 100);
+                TopDocs results = FacetsCollector.search(searcher, query, 100, fc);
                 ScoreDoc[] hits = results.scoreDocs;
+                FacetsConfig fconfig = new FacetsConfig();
+                Facets facetas = new FastTaxonomyFacetCounts(taxoReader, fconfig, fc);
+                List<FacetResult> lista = facetas.getAllDims(100);
+                System.out.println(lista);
 
                 long numTotalHits = results.totalHits.value;
                 System.out.println(numTotalHits+" documentos encontrados");
