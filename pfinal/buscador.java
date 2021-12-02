@@ -25,6 +25,7 @@ import org.apache.lucene.facet.LabelAndValue;
 import org.apache.lucene.facet.taxonomy.TaxonomyReader;
 import org.apache.lucene.facet.taxonomy.FastTaxonomyFacetCounts;
 import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyReader;
+import org.apache.lucene.facet.taxonomy.TaxonomyFacetSumValueSource;
 
 import java.nio.file.Paths;
 import java.nio.charset.*;
@@ -115,7 +116,6 @@ public class buscador {
             reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
             IndexSearcher searcher = new IndexSearcher(reader);
             TaxonomyReader taxoReader = new DirectoryTaxonomyReader(FSDirectory.open(Paths.get(taxoPath)));
-            FacetsCollector fc = new FacetsCollector();
 
             searcher.setSimilarity(similarity);
 
@@ -152,13 +152,18 @@ public class buscador {
                     query = multifieldSearch(campos);
                 else
                     query = singlefieldSearch(campo_actual, campos[id], id);    
-
+                
+                FacetsCollector fc = new FacetsCollector(true);
                 TopDocs results = FacetsCollector.search(searcher, query, 100, fc);
                 ScoreDoc[] hits = results.scoreDocs;
                 FacetsConfig fconfig = new FacetsConfig();
                 Facets facetas = new FastTaxonomyFacetCounts(taxoReader, fconfig, fc);
+                Facets facetas_score = new TaxonomyFacetSumValueSource(taxoReader,fconfig,fc,DoubleValuesSource.SCORES);
                 List<FacetResult> lista = facetas.getAllDims(100);
+                List<FacetResult> scores = facetas_score.getAllDims(100);
                 System.out.println(lista);
+                System.out.println("------------------------------------------");
+                System.out.println(scores);
 
                 long numTotalHits = results.totalHits.value;
                 System.out.println(numTotalHits+" documentos encontrados");

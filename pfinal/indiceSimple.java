@@ -66,7 +66,8 @@ public class indiceSimple {
         indexWriter = new IndexWriter(indexDir, iwc);
 
         fconfig.setMultiValued("year",true);
-        fconfig.setMultiValued("file_name",true);
+        fconfig.setMultiValued("category",true);
+        fconfig.setMultiValued("doc_type",true);
     }
 
     public void indexarDocumentos(File archivo) throws IOException, CsvException {
@@ -111,6 +112,7 @@ public class indiceSimple {
 
             doc.add(new FacetField("category",archivo.getName().substring(0, archivo.getName().lastIndexOf("."))));
             doc.add(new FacetField("year",r[3]));
+            doc.add(new FacetField("doc_type", r[19]));
             indexWriter.addDocument(fconfig.build(taxoWriter,doc));
             r = reader.readNext();
         }while(r!=null);
