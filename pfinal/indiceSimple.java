@@ -18,6 +18,9 @@ import org.apache.lucene.analysis.core.KeywordAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.ClassicAnalyzer;
+import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyWriter;
+import org.apache.lucene.facet.FacetsConfig;
+import org.apache.lucene.facet.FacetField;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,9 +32,12 @@ import java.io.FileInputStream;
 
 public class indiceSimple {
     String indexPath = "./index";
+    String taxoPath = "./taxo";
     String docPath = "./docs";
     boolean create = true;
-    private IndexWriter writer;
+    private IndexWriter indexWriter;
+    private DirectoryTaxonomyWriter taxoWriter;
+    private FacetsConfig fconfig;
     Map<String, Analyzer> analyzerPerField = new HashMap<String, Analyzer>();
 
     indiceSimple(){
@@ -52,8 +58,15 @@ public class indiceSimple {
         iwc.setSimilarity(similarity);
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
-        Directory dir = FSDirectory.open(Paths.get(indexPath));
-        writer = new IndexWriter(dir, iwc);
+        Directory indexDir = FSDirectory.open(Paths.get(indexPath));
+        Directory taxoDir = FSDirectory.open(Paths.get(taxoPath));
+
+        fconfig = new FacetsConfig();
+        taxoWriter = new DirectoryTaxonomyWriter(taxoDir);
+        indexWriter = new IndexWriter(indexDir, iwc);
+
+        fconfig.setMultiValued("year",true);
+        fconfig.setMultiValued("file_name",true);
     }
 
     public void indexarDocumentos(File archivo) throws IOException, CsvException {
@@ -64,7 +77,7 @@ public class indiceSimple {
 
         do{ 
             Document doc = new Document();
-            doc.add(new TextField(  "file_name",
+            doc.add(new TextField(  "category",
                                     archivo.getName().substring(0, archivo.getName().lastIndexOf(".")),
                                     Field.Store.YES));
             doc.add(new StoredField("file_dir", docPath+"/"+archivo.getName()));
@@ -84,7 +97,7 @@ public class indiceSimple {
             doc.add(new StoredField("page_count", r[10]));
             if(!r[11].equals("")){
                 doc.add(new SortedNumericDocValuesField("cited_by", Long.parseLong(r[11])));
-                doc.add(new StoredField("cited_by", Long.parseLong(r[11])));   
+                doc.add(new StoredField("cited_by", Long.parseLong(r[11])));
             }
             doc.add(new StoredField("doi", r[12]));
             doc.add(new StoredField("link", r[13]));
@@ -95,15 +108,20 @@ public class indiceSimple {
             doc.add(new StoredField("doc_type", r[19]));
             doc.add(new StoredField("public_status", r[20]));
             doc.add(new StoredField("eid", r[23]));
-            writer.addDocument(doc);
+
+            doc.add(new FacetField("category",archivo.getName().substring(0, archivo.getName().lastIndexOf("."))));
+            doc.add(new FacetField("year",r[3]));
+            indexWriter.addDocument(fconfig.build(taxoWriter,doc));
             r = reader.readNext();
         }while(r!=null);
     }
 
     public void close() throws IOException, CsvException {
         try {
-            writer.commit();
-            writer.close();
+            indexWriter.commit();
+            indexWriter.close();
+            taxoWriter.commit();
+            taxoWriter.close();
         } catch (IOException e) {
             System.out.println("Error closing the index.");
         }

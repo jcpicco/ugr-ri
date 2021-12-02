@@ -14,6 +14,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyWriter;
 
 import java.nio.file.Paths;
 import java.nio.charset.*;
@@ -40,14 +41,14 @@ import org.apache.lucene.search.IndexSearcher;
 
 public class buscador {
     String indexPath = "./index";
+    String taxoPath = "./taxo";
     String busquedaCampos[] = new String[]  {   "author",
                                                 "title",
                                                 "source_title",
                                                 "affiliations",
                                                 "abstract",
                                                 "author_keywords",
-                                                "index_keywords",
-                                                "year"
+                                                "index_keywords"
                                             };
 
     public Query multifieldSearch(String[] campos) throws ParseException{
@@ -58,12 +59,7 @@ public class buscador {
 
         for(int i = 0; i < campos.length; i++){
             if(!campos[i].isEmpty()){
-                if(i == campos.length - 1){
-                    String lineArray[] = campos[i].split("-");
-                    Query rango = IntPoint.newRangeQuery(busquedaCampos[i], Integer.parseInt(lineArray[0]), Integer.parseInt(lineArray[1]));
-                    bc = new BooleanClause(rango, BooleanClause.Occur.MUST);
-                    bqbuilder.add(bc);
-                } else if(i == 4){
+                if(i == 4){
                     QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
                     qaux = parser.parse(campos[i]);
                     bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
@@ -88,10 +84,7 @@ public class buscador {
     public Query singlefieldSearch(String campo_actual, String busqueda, Integer id) throws ParseException{
         Query query;
 
-        if(campo_actual.equals("year")){
-            String lineArray[] = busqueda.split("-");
-            query = IntPoint.newRangeQuery(busquedaCampos[id], Integer.parseInt(lineArray[0]), Integer.parseInt(lineArray[1]));
-        } else if(campo_actual.equals("abstract")){
+        if(campo_actual.equals("abstract")){
             QueryParser parser = new QueryParser(campo_actual, new EnglishAnalyzer());
             query = parser.parse(busqueda);
             System.out.println(query.toString());
@@ -111,6 +104,7 @@ public class buscador {
         try{
             reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
             IndexSearcher searcher = new IndexSearcher(reader);
+            TaxonomyReader taxoReader = new DirectoryTaxonomyWriter(taxoPath);
 
             searcher.setSimilarity(similarity);
 
@@ -124,7 +118,7 @@ public class buscador {
 
             while(true){
 
-                String[] campos = new String[8];
+                String[] campos = new String[7];
 
                 for(int i = 0; i < campos.length; i++){
                     System.out.print(busquedaCampos[i]+": ");
