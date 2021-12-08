@@ -97,7 +97,7 @@ public class indiceSimple {
             doc.add(new StoredField("page_end", r[9]));
             doc.add(new StoredField("page_count", r[10]));
             if(!r[11].equals("")){
-                doc.add(new SortedNumericDocValuesField("cited_by", Long.parseLong(r[11])));
+                doc.add(new NumericDocValuesField("cited_by", Integer.parseInt(r[11])));
                 doc.add(new StoredField("cited_by", Long.parseLong(r[11])));
             }
             doc.add(new StoredField("doi", r[12]));

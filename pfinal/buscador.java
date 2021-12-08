@@ -158,7 +158,7 @@ public class buscador {
                 ScoreDoc[] hits = results.scoreDocs;
                 FacetsConfig fconfig = new FacetsConfig();
                 Facets facetas = new FastTaxonomyFacetCounts(taxoReader, fconfig, fc);
-                Facets facetas_score = new TaxonomyFacetSumValueSource(taxoReader,fconfig,fc,DoubleValuesSource.SCORES);
+                Facets facetas_score = new TaxonomyFacetSumValueSource(taxoReader,fconfig,fc,DoubleValuesSource.SCORES.fromIntField("cited_by"));
                 List<FacetResult> lista = facetas.getAllDims(100);
                 List<FacetResult> scores = facetas_score.getAllDims(100);
                 System.out.println(lista);
@@ -166,6 +166,27 @@ public class buscador {
                 System.out.println(scores);
 
                 long numTotalHits = results.totalHits.value;
+
+                DrillDownQuery ddq = new DrillDownQuery(fconfig,query);
+
+                String f = "category--software,doc_type--Article";
+                String fArray[] = f.split(",");
+
+                for(String aux : fArray){
+                    String faux[] = aux.split("--");
+                    
+                    ddq.add(faux[0],faux[1]);
+                }
+
+                FacetsCollector fc1 = new FacetsCollector(true);;
+                TopDocs results2 = FacetsCollector.search(searcher, ddq, 100, fc1);
+                ScoreDoc[] hits2 = results2.scoreDocs;
+                Facets facetas2 = new FastTaxonomyFacetCounts(taxoReader, fconfig, fc1);
+
+                List<FacetResult> lista2 = facetas2.getAllDims(100);
+                System.out.println("------------------------------------------");
+                System.out.println(lista2);
+
                 System.out.println(numTotalHits+" documentos encontrados");
                 // for(int j=0 ; j<hits.length ; j++){
                 //     Document doc = searcher.doc(hits[j].doc);
