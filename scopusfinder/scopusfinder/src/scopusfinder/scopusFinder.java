@@ -55,11 +55,18 @@ public class scopusFinder {
     String indexPath = "./index";
     String taxoPath = "./taxo";
     String busquedaCampos[] = new String[]  {   "author",
+                                                "author",
+                                                "title",
                                                 "title",
                                                 "source_title",
+                                                "source_title",
+                                                "affiliations",
                                                 "affiliations",
                                                 "abstract",
+                                                "abstract",
                                                 "author_keywords",
+                                                "author_keywords",
+                                                "index_keywords",
                                                 "index_keywords"
                                             };
 
@@ -70,23 +77,44 @@ public class scopusFinder {
         Query query = new MatchAllDocsQuery();
 
         for(int i = 0; i < campos.length; i++){
-            if(!campos[i].isEmpty()){
-                if(i == 4){
-                    QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
-                    qaux = parser.parse(campos[i]);
-                    bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
-                    System.out.println(qaux.toString());
-                    bqbuilder.add(bc);
-                }
-                else{
-                    QueryParser parser = new QueryParser(busquedaCampos[i], new SimpleAnalyzer());
-                    qaux = parser.parse(campos[i]);
-                    bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
-                    System.out.println(qaux.toString());
-                    bqbuilder.add(bc);
-                }
+            if(i%2==0){
+                if(!campos[i].isEmpty()){
+                    if(i == 4){
+                        QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
+                        qaux = parser.parse(campos[i]);
+                        bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
+                        System.out.println(qaux.toString());
+                        bqbuilder.add(bc);
+                    }
+                    else{
+                        QueryParser parser = new QueryParser(busquedaCampos[i], new SimpleAnalyzer());
+                        qaux = parser.parse(campos[i]);
+                        bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
+                        System.out.println(qaux.toString());
+                        bqbuilder.add(bc);
+                    }
 
-                query = bqbuilder.build();
+                    query = bqbuilder.build();
+                }
+            } else{
+                if(!campos[i].isEmpty()){
+                    if(i == 5){
+                        QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
+                        qaux = parser.parse(campos[i]);
+                        bc = new BooleanClause(qaux, BooleanClause.Occur.MUST_NOT);
+                        System.out.println(qaux.toString());
+                        bqbuilder.add(bc);
+                    }
+                    else{
+                        QueryParser parser = new QueryParser(busquedaCampos[i], new SimpleAnalyzer());
+                        qaux = parser.parse(campos[i]);
+                        bc = new BooleanClause(qaux, BooleanClause.Occur.MUST_NOT);
+                        System.out.println(qaux.toString());
+                        bqbuilder.add(bc);
+                    }
+
+                    query = bqbuilder.build();
+                }
             }
         }
 
@@ -130,11 +158,13 @@ public class scopusFinder {
 
             while(true){
 
-                String[] campos = new String[7];
+                String[] campos = new String[14];
 
-                for(int i = 0; i < campos.length; i++){
-                    System.out.print(busquedaCampos[i]+": ");
+                for(int i = 0; i < campos.length; i+=2){
+                    System.out.print(busquedaCampos[i]+" incluir: ");
                     campos[i] = in.readLine();
+                    System.out.print(busquedaCampos[i+1]+" excluir: ");
+                    campos[i+1] = in.readLine();
                 }
 
                 int longitud = 0;
@@ -184,13 +214,13 @@ public class scopusFinder {
                 System.out.println(scores);
 
                 System.out.println(numTotalHits+" documentos encontrados");
-                for(int j=0 ; j<hits.length ; j++){
-                    Document doc = searcher.doc(hits[j].doc);
+                for(int i=0 ; i<hits.length ; i++){
+                    Document doc = searcher.doc(hits[i].doc);
                     List<IndexableField> docs = doc.getFields();
 
-                    for(IndexableField daux : docs){
-                        System.out.println(daux.stringValue());
-                    }
+                    // for(IndexableField daux : docs){
+                    //     System.out.println(daux.stringValue());
+                    // }
 
 
                     // String author = doc.get("author");
