@@ -81,7 +81,6 @@ public class indiceSimple {
             doc.add(new TextField(  "category",
                                     archivo.getName().substring(0, archivo.getName().lastIndexOf(".")),
                                     Field.Store.YES));
-            doc.add(new StoredField("file_dir", docPath+"/"+archivo.getName()));
             doc.add(new TextField("author", r[0], Field.Store.YES));
             doc.add(new StoredField("author_id", r[1]));
             doc.add(new TextField("title", r[2], Field.Store.YES));

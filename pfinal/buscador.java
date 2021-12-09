@@ -14,6 +14,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.index.*;
 
 import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyWriter;
 import org.apache.lucene.facet.FacetsConfig;
@@ -151,54 +152,80 @@ public class buscador {
                 if(longitud > 1)
                     query = multifieldSearch(campos);
                 else
-                    query = singlefieldSearch(campo_actual, campos[id], id);    
-                
-                FacetsCollector fc = new FacetsCollector(true);
-                TopDocs results = FacetsCollector.search(searcher, query, 100, fc);
-                ScoreDoc[] hits = results.scoreDocs;
+                    query = singlefieldSearch(campo_actual, campos[id], id);
+
                 FacetsConfig fconfig = new FacetsConfig();
+                DrillDownQuery ddq = new DrillDownQuery(fconfig,query);
+
+                String f = "category=software,doc_type=Article,year=2022";
+                
+                if(!f.equals("")){
+                    String fArray[] = f.split(",");
+
+                    for(String aux : fArray){
+                        System.out.println(aux);
+                        String faux[] = aux.split("=");
+                        
+                        ddq.add(faux[0],faux[1]);
+                    }
+                }
+
+                FacetsCollector fc = new FacetsCollector(true);
+                TopDocs results = FacetsCollector.search(searcher, ddq, 100, fc);
+                long numTotalHits = results.totalHits.value;
+                ScoreDoc[] hits = results.scoreDocs;
                 Facets facetas = new FastTaxonomyFacetCounts(taxoReader, fconfig, fc);
                 Facets facetas_score = new TaxonomyFacetSumValueSource(taxoReader,fconfig,fc,DoubleValuesSource.SCORES.fromIntField("cited_by"));
+
                 List<FacetResult> lista = facetas.getAllDims(100);
                 List<FacetResult> scores = facetas_score.getAllDims(100);
                 System.out.println(lista);
                 System.out.println("------------------------------------------");
                 System.out.println(scores);
 
-                long numTotalHits = results.totalHits.value;
-
-                DrillDownQuery ddq = new DrillDownQuery(fconfig,query);
-
-                String f = "category--software,doc_type--Article";
-                String fArray[] = f.split(",");
-
-                for(String aux : fArray){
-                    String faux[] = aux.split("--");
-                    
-                    ddq.add(faux[0],faux[1]);
-                }
-
-                FacetsCollector fc1 = new FacetsCollector(true);;
-                TopDocs results2 = FacetsCollector.search(searcher, ddq, 100, fc1);
-                ScoreDoc[] hits2 = results2.scoreDocs;
-                Facets facetas2 = new FastTaxonomyFacetCounts(taxoReader, fconfig, fc1);
-
-                List<FacetResult> lista2 = facetas2.getAllDims(100);
-                System.out.println("------------------------------------------");
-                System.out.println(lista2);
-
                 System.out.println(numTotalHits+" documentos encontrados");
-                // for(int j=0 ; j<hits.length ; j++){
-                //     Document doc = searcher.doc(hits[j].doc);
-                //     String author = doc.get("author");
-                //     String title = doc.get("title");
-                //     System.out.println("Estoy aquí");
+                for(int j=0 ; j<hits.length ; j++){
+                    Document doc = searcher.doc(hits[j].doc);
+                    List<IndexableField> docs = doc.getFields();
 
-                //     System.out.println("−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−");
-                //     System.out.println("Título: "+title);
-                //     System.out.println("Autor: "+author);
-                //     System.out.println();
-                // }
+                    for(int i = 0 ; i < docs.length : i++){
+                        System.out.println(docs[i].stringValue());
+                    }
+
+
+                    // String author = doc.get("author");
+                    // String title = doc.get("title");
+                    // String category = doc.get("category");
+                    // String volume = doc.get("volume");
+                    // String issue = doc.get("issue");
+                    // String doc_type = doc.get("doc_type");
+                    // String article_number = doc.get("article_number");
+                    // String page_start = doc.get("page_start");
+                    // String page_end = doc.get("page_end");
+                    // String page_count = doc.get("page_count");
+                    // String cited_by = doc.get("cited_by");
+                    // String doi = doc.get("doi");
+                    // String link = doc.get("link");
+                    // String affiliations = doc.get("affiliations");
+                    // String abstract = doc.get("abstract");
+                    // String public_status = doc.get("public_status");
+                    // String eid = doc.get("eid");
+
+
+                    // System.out.println("−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−");
+                    // System.out.println("Título: "+title);
+                    // System.out.println("Autor: "+author);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Volumen: "+volume);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Categoría: "+category);
+                    // System.out.println("Categoría: "+category);
+
+                }
 
                 if(line.equals("")) break;
             }
