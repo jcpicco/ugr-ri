@@ -287,6 +287,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_eautorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String resultado = "";
         String campos[] = new String[]  {   autor.getText(),
                                             eautor.getText(),
                                             titulo.getText(),
@@ -304,12 +305,12 @@ public class Interfaz extends javax.swing.JFrame {
                                         };
         
         try{
-            scopusFinder.main(campos);
+            resultado = scopusFinder.main(campos);
         } catch (ParseException pe){
             System.err.print("Campos no válido");
         }
         
-        output.append("hola");
+        output.setText(resultado);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

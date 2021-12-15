@@ -1,5 +1,6 @@
 package scopusfinder;
 
+import java.util.ArrayList;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.store.FSDirectory;
@@ -122,8 +123,9 @@ public class scopusFinder {
         return query;
     }
 
-    public void indexSearch(Analyzer analyzer, Similarity similarity, String[] campos) throws ParseException{
+    public String indexSearch(Analyzer analyzer, Similarity similarity, String[] campos) throws ParseException{
         IndexReader reader = null;
+        String output = "";
 
         try{
             reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
@@ -140,7 +142,6 @@ public class scopusFinder {
 
             //Analyzer abstract_analyzer = new EnglishAnalyzer(ENGLISH_STOP_WORDS);
 
-            while(true){
                 int longitud = 0;
                 String campo_actual = "";
                 int id = -1;
@@ -155,8 +156,10 @@ public class scopusFinder {
 
                 if(longitud > 1)
                     query = multifieldSearch(campos);
-                else
+                else if(longitud == 1)
                     query = singlefieldSearch(campo_actual, campos[id], id);
+                else
+                    return output;
 
                 FacetsConfig fconfig = new FacetsConfig();
                 DrillDownQuery ddq = new DrillDownQuery(fconfig,query);
@@ -186,15 +189,46 @@ public class scopusFinder {
                 System.out.println(lista);
                 System.out.println("------------------------------------------");
                 System.out.println(scores);
+                
 
                 System.out.println(numTotalHits+" documentos encontrados");
+
                 for(int i=0 ; i<hits.length ; i++){
                     Document doc = searcher.doc(hits[i].doc);
-                    List<IndexableField> docs = doc.getFields();
+                    //List<IndexableField> docs = doc.getFields();
+                    output += "Author: " + doc.get("author");
+                    if(!doc.get("title").equals(""))
+                        output += "\nTitle: " + doc.get("title");
+                    if(!doc.get("category").equals(""))
+                        output += "\nCategory: " + doc.get("category");
+                    if(!doc.get("volume").equals(""))
+                        output += "\nVolume: " + doc.get("volume");
+                    if(!doc.get("issue").equals(""))
+                        output += "\nIssue: " + doc.get("issue");
+                    if(!doc.get("doc_type").equals(""))
+                        output += "\nDocument type: " + doc.get("doc_type");
+                    if(!doc.get("article_number").equals(""))
+                        output += "\nArticle number: " + doc.get("article_number");
+                    if(!doc.get("page_start").equals(""))
+                        output += "\nPage start: " + doc.get("page_start");
+                    if(!doc.get("page_end").equals(""))
+                        output += "\nPage end: " + doc.get("page_end");
+                    if(!doc.get("page_count").equals(""))
+                        output += "\nPage count: " + doc.get("page_count");
+                    if(!doc.get("doi").equals(""))
+                        output += "\nDOI: " + doc.get("doi");
+                    if(!doc.get("link").equals(""))
+                        output += "\nLink: " + doc.get("link");
+                    if(!doc.get("affiliations").equals(""))
+                        output += "\nAffiliations: " + doc.get("affiliations");
+                    if(!doc.get("abstract").equals(""))
+                        output += "\nAbstract: " + doc.get("abstract");
+                    if(!doc.get("public_status").equals(""))
+                        output += "\nPublic status: " + doc.get("public_status");
+                    if(!doc.get("eid").equals(""))
+                        output += "\nEID: " + doc.get("eid") + "\n\n";
                 }
-
-                if(line.equals("")) break;
-            }
+            
         reader.close();
         } catch (IOException e){
             try{
@@ -205,15 +239,19 @@ public class scopusFinder {
 
         e.printStackTrace();
         }
+        
+        return output;
     }
 
-    public static void main(String[] args) throws ParseException{
+    public static String main(String[] args) throws ParseException{
         Analyzer analyzer = new SimpleAnalyzer();
         Similarity similarity = new ClassicSimilarity();
         // Similarity similarity = new LMDirichletSimilarity();
         // Similarity similarity = new BM25Similarity();
 
         scopusFinder busqueda = new scopusFinder();
-        busqueda.indexSearch(analyzer, similarity, args);
+        String output = busqueda.indexSearch(analyzer, similarity, args);
+        
+        return output;
     }
 }
