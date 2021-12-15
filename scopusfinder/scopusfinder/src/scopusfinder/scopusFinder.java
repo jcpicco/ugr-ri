@@ -1,30 +1,21 @@
 package scopusfinder;
 
-import com.opencsv.CSVReader;
-import java.io.FileReader;
-import com.opencsv.exceptions.CsvException;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.document.*;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.*;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.index.*;
 
-import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyWriter;
 import org.apache.lucene.facet.FacetsConfig;
 import org.apache.lucene.facet.DrillDownQuery;
 import org.apache.lucene.facet.FacetsCollector;
 import org.apache.lucene.facet.Facets;
 import org.apache.lucene.facet.FacetResult;
-import org.apache.lucene.facet.LabelAndValue;
 import org.apache.lucene.facet.taxonomy.TaxonomyReader;
 import org.apache.lucene.facet.taxonomy.FastTaxonomyFacetCounts;
 import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyReader;
@@ -33,18 +24,11 @@ import org.apache.lucene.facet.taxonomy.TaxonomyFacetSumValueSource;
 import java.nio.file.Paths;
 import java.nio.charset.*;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.io.File;
 import java.io.InputStreamReader;
-import java.io.FileInputStream;
 import java.io.BufferedReader;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.*;
 
 import org.apache.lucene.search.Query;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -138,7 +122,7 @@ public class scopusFinder {
         return query;
     }
 
-    public void indexSearch(Analyzer analyzer, Similarity similarity) throws ParseException{
+    public void indexSearch(Analyzer analyzer, Similarity similarity, String[] campos) throws ParseException{
         IndexReader reader = null;
 
         try{
@@ -157,16 +141,6 @@ public class scopusFinder {
             //Analyzer abstract_analyzer = new EnglishAnalyzer(ENGLISH_STOP_WORDS);
 
             while(true){
-
-                String[] campos = new String[14];
-
-                for(int i = 0; i < campos.length; i+=2){
-                    System.out.print(busquedaCampos[i]+" incluir: ");
-                    campos[i] = in.readLine();
-                    System.out.print(busquedaCampos[i+1]+" excluir: ");
-                    campos[i+1] = in.readLine();
-                }
-
                 int longitud = 0;
                 String campo_actual = "";
                 int id = -1;
@@ -217,44 +191,6 @@ public class scopusFinder {
                 for(int i=0 ; i<hits.length ; i++){
                     Document doc = searcher.doc(hits[i].doc);
                     List<IndexableField> docs = doc.getFields();
-
-                    // for(IndexableField daux : docs){
-                    //     System.out.println(daux.stringValue());
-                    // }
-
-
-                    // String author = doc.get("author");
-                    // String title = doc.get("title");
-                    // String category = doc.get("category");
-                    // String volume = doc.get("volume");
-                    // String issue = doc.get("issue");
-                    // String doc_type = doc.get("doc_type");
-                    // String article_number = doc.get("article_number");
-                    // String page_start = doc.get("page_start");
-                    // String page_end = doc.get("page_end");
-                    // String page_count = doc.get("page_count");
-                    // String cited_by = doc.get("cited_by");
-                    // String doi = doc.get("doi");
-                    // String link = doc.get("link");
-                    // String affiliations = doc.get("affiliations");
-                    // String abstract = doc.get("abstract");
-                    // String public_status = doc.get("public_status");
-                    // String eid = doc.get("eid");
-
-
-                    // System.out.println("−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−");
-                    // System.out.println("Título: "+title);
-                    // System.out.println("Autor: "+author);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Volumen: "+volume);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Categoría: "+category);
-                    // System.out.println("Categoría: "+category);
-
                 }
 
                 if(line.equals("")) break;
@@ -278,6 +214,6 @@ public class scopusFinder {
         // Similarity similarity = new BM25Similarity();
 
         scopusFinder busqueda = new scopusFinder();
-        busqueda.indexSearch(analyzer, similarity);
+        busqueda.indexSearch(analyzer, similarity, args);
     }
 }
