@@ -123,7 +123,7 @@ public class scopusFinder {
         return query;
     }
 
-    public String indexSearch(Analyzer analyzer, Similarity similarity, String[] campos) throws ParseException{
+    public String indexSearch(Analyzer analyzer, Similarity similarity, String[] campos, String[] facets) throws ParseException{
         IndexReader reader = null;
         String output = "";
 
@@ -137,7 +137,7 @@ public class scopusFinder {
             BufferedReader in = null;
             in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
-            Query query = new MatchAllDocsQuery();
+            Query query;
             String line = "";
 
             //Analyzer abstract_analyzer = new EnglishAnalyzer(ENGLISH_STOP_WORDS);
@@ -159,22 +159,16 @@ public class scopusFinder {
                 else if(longitud == 1)
                     query = singlefieldSearch(campo_actual, campos[id], id);
                 else
-                    return output;
+                    query = new MatchAllDocsQuery();
 
                 FacetsConfig fconfig = new FacetsConfig();
                 DrillDownQuery ddq = new DrillDownQuery(fconfig,query);
 
-                String f = "category=software,doc_type=Article,year=2022";
-                
-                if(!f.equals("")){
-                    String fArray[] = f.split(",");
+                for(String aux : facets){
+                    System.out.println(aux);
+                    String faux[] = aux.split("=");
 
-                    for(String aux : fArray){
-                        System.out.println(aux);
-                        String faux[] = aux.split("=");
-                        
-                        ddq.add(faux[0],faux[1]);
-                    }
+                    ddq.add(faux[0],faux[1]);
                 }
 
                 FacetsCollector fc = new FacetsCollector(true);
@@ -189,44 +183,45 @@ public class scopusFinder {
                 System.out.println(lista);
                 System.out.println("------------------------------------------");
                 System.out.println(scores);
-                
 
                 System.out.println(numTotalHits+" documentos encontrados");
 
                 for(int i=0 ; i<hits.length ; i++){
                     Document doc = searcher.doc(hits[i].doc);
-                    //List<IndexableField> docs = doc.getFields();
-                    output += "Author: " + doc.get("author");
+                    output += "Documento "+(i+1);
+                    output += "\n\tAuthor: " + doc.get("author");
                     if(!doc.get("title").equals(""))
-                        output += "\nTitle: " + doc.get("title");
+                        output += "\n\tTitle: " + doc.get("title");
                     if(!doc.get("category").equals(""))
-                        output += "\nCategory: " + doc.get("category");
+                        output += "\n\tCategory: " + doc.get("category");
+                    if(!doc.get("year").equals(""))
+                        output += "\n\tyear: " + doc.get("year");
                     if(!doc.get("volume").equals(""))
-                        output += "\nVolume: " + doc.get("volume");
+                        output += "\n\tVolume: " + doc.get("volume");
                     if(!doc.get("issue").equals(""))
-                        output += "\nIssue: " + doc.get("issue");
+                        output += "\n\tIssue: " + doc.get("issue");
                     if(!doc.get("doc_type").equals(""))
-                        output += "\nDocument type: " + doc.get("doc_type");
+                        output += "\n\tDocument type: " + doc.get("doc_type");
                     if(!doc.get("article_number").equals(""))
-                        output += "\nArticle number: " + doc.get("article_number");
+                        output += "\n\tArticle number: " + doc.get("article_number");
                     if(!doc.get("page_start").equals(""))
-                        output += "\nPage start: " + doc.get("page_start");
+                        output += "\n\tPage start: " + doc.get("page_start");
                     if(!doc.get("page_end").equals(""))
-                        output += "\nPage end: " + doc.get("page_end");
+                        output += "\n\tPage end: " + doc.get("page_end");
                     if(!doc.get("page_count").equals(""))
-                        output += "\nPage count: " + doc.get("page_count");
+                        output += "\n\tPage count: " + doc.get("page_count");
                     if(!doc.get("doi").equals(""))
-                        output += "\nDOI: " + doc.get("doi");
+                        output += "\n\tDOI: " + doc.get("doi");
                     if(!doc.get("link").equals(""))
-                        output += "\nLink: " + doc.get("link");
+                        output += "\n\tLink: " + doc.get("link");
                     if(!doc.get("affiliations").equals(""))
-                        output += "\nAffiliations: " + doc.get("affiliations");
+                        output += "\n\tAffiliations: " + doc.get("affiliations");
                     if(!doc.get("abstract").equals(""))
-                        output += "\nAbstract: " + doc.get("abstract");
+                        output += "\n\tAbstract: " + doc.get("abstract");
                     if(!doc.get("public_status").equals(""))
-                        output += "\nPublic status: " + doc.get("public_status");
+                        output += "\n\tPublic status: " + doc.get("public_status");
                     if(!doc.get("eid").equals(""))
-                        output += "\nEID: " + doc.get("eid") + "\n\n";
+                        output += "\n\tEID: " + doc.get("eid") + "\n\n";
                 }
             
         reader.close();
@@ -243,14 +238,14 @@ public class scopusFinder {
         return output;
     }
 
-    public static String main(String[] args) throws ParseException{
+    public static String main(String[] args, String[] args2) throws ParseException{
         Analyzer analyzer = new SimpleAnalyzer();
         Similarity similarity = new ClassicSimilarity();
         // Similarity similarity = new LMDirichletSimilarity();
         // Similarity similarity = new BM25Similarity();
 
         scopusFinder busqueda = new scopusFinder();
-        String output = busqueda.indexSearch(analyzer, similarity, args);
+        String output = busqueda.indexSearch(analyzer, similarity, args, args2);
         
         return output;
     }

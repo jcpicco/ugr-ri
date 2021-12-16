@@ -4,14 +4,14 @@
  */
 package scopusfinder;
 
+import java.util.ArrayList;
 import org.apache.lucene.queryparser.classic.ParseException;
-
 /**
  *
  * @author jmcon
  */
 public class Interfaz extends javax.swing.JFrame {
-
+    ArrayList<String> facetas = new ArrayList<>();
     /**
      * Creates new form Interfaz
      */
@@ -59,6 +59,33 @@ public class Interfaz extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         output = new javax.swing.JTextArea();
+        cloudcomputing = new javax.swing.JCheckBox();
+        datascience = new javax.swing.JCheckBox();
+        digitallibrary = new javax.swing.JCheckBox();
+        geographic = new javax.swing.JCheckBox();
+        marketing = new javax.swing.JCheckBox();
+        naturallang = new javax.swing.JCheckBox();
+        software = new javax.swing.JCheckBox();
+        spain = new javax.swing.JCheckBox();
+        videogames = new javax.swing.JCheckBox();
+        wireless = new javax.swing.JCheckBox();
+        jLabel15 = new javax.swing.JLabel();
+        datapaper = new javax.swing.JCheckBox();
+        confreview = new javax.swing.JCheckBox();
+        note = new javax.swing.JCheckBox();
+        review = new javax.swing.JCheckBox();
+        editorial = new javax.swing.JCheckBox();
+        bookchapter = new javax.swing.JCheckBox();
+        jLabel16 = new javax.swing.JLabel();
+        article = new javax.swing.JCheckBox();
+        confpaper = new javax.swing.JCheckBox();
+        erratum = new javax.swing.JCheckBox();
+        letter = new javax.swing.JCheckBox();
+        year1 = new javax.swing.JCheckBox();
+        jLabel17 = new javax.swing.JLabel();
+        year2 = new javax.swing.JCheckBox();
+        year3 = new javax.swing.JCheckBox();
+        year4 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +117,12 @@ public class Interfaz extends javax.swing.JFrame {
         keyindice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 keyindiceActionPerformed(evt);
+            }
+        });
+
+        ekeyindice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ekeyindiceActionPerformed(evt);
             }
         });
 
@@ -128,23 +161,235 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        output.setEditable(false);
         output.setColumns(20);
         output.setRows(5);
+        output.setTabSize(3);
+        output.setToolTipText("");
+        output.setWrapStyleWord(true);
         jScrollPane1.setViewportView(output);
+
+        cloudcomputing.setText("Cloud Computing");
+        cloudcomputing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cloudcomputingActionPerformed(evt);
+            }
+        });
+
+        datascience.setText("Data Science");
+        datascience.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datascienceActionPerformed(evt);
+            }
+        });
+
+        digitallibrary.setText("Digital Library");
+        digitallibrary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digitallibraryActionPerformed(evt);
+            }
+        });
+
+        geographic.setText("Geographic");
+        geographic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                geographicActionPerformed(evt);
+            }
+        });
+
+        marketing.setText("Marketing");
+        marketing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marketingActionPerformed(evt);
+            }
+        });
+
+        naturallang.setText("Natural Language");
+        naturallang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                naturallangActionPerformed(evt);
+            }
+        });
+
+        software.setText("Software");
+        software.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                softwareActionPerformed(evt);
+            }
+        });
+
+        spain.setText("Spain");
+        spain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spainActionPerformed(evt);
+            }
+        });
+
+        videogames.setText("Videogames");
+        videogames.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                videogamesActionPerformed(evt);
+            }
+        });
+
+        wireless.setText("Wireless Connection");
+        wireless.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wirelessActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Categoría");
+
+        datapaper.setText("Data Paper");
+        datapaper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datapaperActionPerformed(evt);
+            }
+        });
+
+        confreview.setText("Conference Review");
+        confreview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confreviewActionPerformed(evt);
+            }
+        });
+
+        note.setText("Note");
+        note.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noteActionPerformed(evt);
+            }
+        });
+
+        review.setText("Review");
+        review.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reviewActionPerformed(evt);
+            }
+        });
+
+        editorial.setText("Editorial");
+        editorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editorialActionPerformed(evt);
+            }
+        });
+
+        bookchapter.setText("Book Chapter");
+        bookchapter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookchapterActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Tipo de documento");
+
+        article.setText("Article");
+        article.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                articleActionPerformed(evt);
+            }
+        });
+
+        confpaper.setText("Conference Paper");
+        confpaper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confpaperActionPerformed(evt);
+            }
+        });
+
+        erratum.setText("Erratum");
+        erratum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                erratumActionPerformed(evt);
+            }
+        });
+
+        letter.setText("Letter");
+        letter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                letterActionPerformed(evt);
+            }
+        });
+
+        year1.setText("2019");
+        year1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                year1ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("Año");
+
+        year2.setText("2020");
+        year2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                year2ActionPerformed(evt);
+            }
+        });
+
+        year3.setText("2021");
+        year3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                year3ActionPerformed(evt);
+            }
+        });
+
+        year4.setText("2022");
+        year4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                year4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(digitallibrary)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cloudcomputing)
+                                    .addComponent(software)
+                                    .addComponent(naturallang)
+                                    .addComponent(wireless))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spain)
+                                    .addComponent(marketing)
+                                    .addComponent(geographic)
+                                    .addComponent(datascience)
+                                    .addComponent(videogames)))
+                            .addComponent(jLabel15)
+                            .addComponent(confpaper)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bookchapter)
+                                    .addComponent(confreview)
+                                    .addComponent(datapaper)
+                                    .addComponent(editorial))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(note)
+                                    .addComponent(letter)
+                                    .addComponent(erratum)
+                                    .addComponent(article)
+                                    .addComponent(review)))
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel5)
+                            .addComponent(jLabel1)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8)
@@ -152,21 +397,8 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addComponent(jLabel12)
                             .addComponent(jLabel13)
-                            .addComponent(jLabel14)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(259, 259, 259)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -183,28 +415,40 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addComponent(autor)
                                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(etitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28))
+                                .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(year1)
+                            .addComponent(year3))
+                        .addGap(95, 95, 95)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(year2)
+                            .addComponent(year4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(441, 441, 441))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
@@ -219,8 +463,33 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(efuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cloudcomputing)
+                                    .addComponent(datascience))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(digitallibrary)
+                                    .addComponent(geographic))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(marketing)
+                                        .addGap(0, 0, 0))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(software)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(naturallang)
+                                            .addComponent(spain))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(videogames)
+                                    .addComponent(wireless))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(afiliados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
@@ -241,26 +510,60 @@ public class Interfaz extends javax.swing.JFrame {
                                     .addComponent(keyautor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(ekeyautor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12))
+                                    .addComponent(jLabel12)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(bookchapter)
+                                    .addComponent(article))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(confpaper)
+                                    .addComponent(erratum))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(letter)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(confreview)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(datapaper)
+                                            .addComponent(note))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(review)
+                                    .addComponent(editorial))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(year1)
+                                    .addComponent(year2))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(year3)
+                                            .addComponent(year4)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jButton1)))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                    .addComponent(jLabel14))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -287,6 +590,8 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_eautorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        output.setLineWrap(true);
+        output.setWrapStyleWord(true);
         String resultado = "";
         String campos[] = new String[]  {   autor.getText(),
                                             eautor.getText(),
@@ -305,13 +610,139 @@ public class Interfaz extends javax.swing.JFrame {
                                         };
         
         try{
-            resultado = scopusFinder.main(campos);
+            String[] aux = facetas.toArray(String[]::new);
+            resultado = scopusFinder.main(campos, aux);
         } catch (ParseException pe){
             System.err.print("Campos no válido");
         }
         
         output.setText(resultado);
+        output.setCaretPosition(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cloudcomputingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cloudcomputingActionPerformed
+        if(cloudcomputing.isSelected()) facetas.add("category=cloud-computing");
+        else facetas.remove("category=cloud-computing");
+    }//GEN-LAST:event_cloudcomputingActionPerformed
+
+    private void digitallibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_digitallibraryActionPerformed
+        if(digitallibrary.isSelected()) facetas.add("category=digital-library");
+        else facetas.remove("category=digital-library");
+    }//GEN-LAST:event_digitallibraryActionPerformed
+
+    private void softwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_softwareActionPerformed
+        if(software.isSelected()) facetas.add("category=software");
+        else facetas.remove("category=software");
+    }//GEN-LAST:event_softwareActionPerformed
+
+    private void confreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confreviewActionPerformed
+        if(confreview.isSelected()) facetas.add("doc_type=Conference Review");
+        else facetas.remove("doc_type=Conference Review");
+    }//GEN-LAST:event_confreviewActionPerformed
+
+    private void bookchapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookchapterActionPerformed
+        if(bookchapter.isSelected()) facetas.add("doc_type=Book Chapter");
+        else facetas.remove("doc_type=Book Chapter");
+    }//GEN-LAST:event_bookchapterActionPerformed
+
+    private void confpaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confpaperActionPerformed
+        if(confpaper.isSelected()) facetas.add("doc_type=Conference Paper");
+        else facetas.remove("doc_type=Conference Paper");
+    }//GEN-LAST:event_confpaperActionPerformed
+
+    private void year1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1ActionPerformed
+        if(year1.isSelected()) facetas.add("year=2019");
+        else facetas.remove("year=2019");
+    }//GEN-LAST:event_year1ActionPerformed
+
+    private void year3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3ActionPerformed
+        if(year3.isSelected()) facetas.add("year=2021");
+        else facetas.remove("year=2021");
+    }//GEN-LAST:event_year3ActionPerformed
+
+    private void datascienceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datascienceActionPerformed
+        if(datascience.isSelected()) facetas.add("category=data-science");
+        else facetas.remove("category=data-science");
+    }//GEN-LAST:event_datascienceActionPerformed
+
+    private void geographicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geographicActionPerformed
+        if(geographic.isSelected()) facetas.add("category=geographic-information-system");
+        else facetas.remove("category=geographic-information-system");
+    }//GEN-LAST:event_geographicActionPerformed
+
+    private void marketingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marketingActionPerformed
+        if(marketing.isSelected()) facetas.add("category=marketing");
+        else facetas.remove("category=marketing");
+    }//GEN-LAST:event_marketingActionPerformed
+
+    private void naturallangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_naturallangActionPerformed
+        if(naturallang.isSelected()) facetas.add("category=natural-language-processing");
+        else facetas.remove("category=natural-language-processing");
+    }//GEN-LAST:event_naturallangActionPerformed
+
+    private void spainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spainActionPerformed
+        if(spain.isSelected()) facetas.add("category=wireless-connection");
+        else facetas.remove("category=wireless-connection");
+    }//GEN-LAST:event_spainActionPerformed
+
+    private void wirelessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wirelessActionPerformed
+        if(wireless.isSelected()) facetas.add("category=spain");
+        else facetas.remove("category=spain");
+    }//GEN-LAST:event_wirelessActionPerformed
+
+    private void videogamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videogamesActionPerformed
+        if(videogames.isSelected()) facetas.add("category=videogames");
+        else facetas.remove("category=videogames");
+    }//GEN-LAST:event_videogamesActionPerformed
+
+    private void articleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articleActionPerformed
+        if(article.isSelected()) facetas.add("doc_type=Article");
+        else facetas.remove("doc_type=Article");
+    }//GEN-LAST:event_articleActionPerformed
+
+    private void datapaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datapaperActionPerformed
+        if(datapaper.isSelected()) facetas.add("doc_type=Data Paper");
+        else facetas.remove("doc_type=Data Paper");
+    }//GEN-LAST:event_datapaperActionPerformed
+
+    private void editorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorialActionPerformed
+        if(editorial.isSelected()) facetas.add("doc_type=Editorial");
+        else facetas.remove("doc_type=Editorial");
+    }//GEN-LAST:event_editorialActionPerformed
+
+    private void erratumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_erratumActionPerformed
+        if(erratum.isSelected()) facetas.add("doc_type=Erratum");
+        else facetas.remove("doc_type=Erratum");
+    }//GEN-LAST:event_erratumActionPerformed
+
+    private void letterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_letterActionPerformed
+        if(letter.isSelected()) facetas.add("doc_type=Letter");
+        else facetas.remove("doc_type=Letter");
+    }//GEN-LAST:event_letterActionPerformed
+
+    private void noteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noteActionPerformed
+        if(note.isSelected()) facetas.add("doc_type=Note");
+        else facetas.remove("doc_type=Note");
+    }//GEN-LAST:event_noteActionPerformed
+
+    private void reviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewActionPerformed
+        if(review.isSelected()) facetas.add("doc_type=Review");
+        else facetas.remove("doc_type=Review");
+    }//GEN-LAST:event_reviewActionPerformed
+
+    private void year2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2ActionPerformed
+        if(year2.isSelected()) facetas.add("year=2020");
+        else facetas.remove("year=2020");
+    }//GEN-LAST:event_year2ActionPerformed
+
+    private void year4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year4ActionPerformed
+        if(year4.isSelected()) facetas.add("year=2022");
+        else facetas.remove("year=2022");
+    }//GEN-LAST:event_year4ActionPerformed
+
+    private void ekeyindiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ekeyindiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ekeyindiceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,15 +781,26 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField afiliados;
+    private javax.swing.JCheckBox article;
     private javax.swing.JTextField autor;
+    private javax.swing.JCheckBox bookchapter;
+    private javax.swing.JCheckBox cloudcomputing;
+    private javax.swing.JCheckBox confpaper;
+    private javax.swing.JCheckBox confreview;
+    private javax.swing.JCheckBox datapaper;
+    private javax.swing.JCheckBox datascience;
+    private javax.swing.JCheckBox digitallibrary;
     private javax.swing.JTextField eafiliados;
     private javax.swing.JTextField eautor;
+    private javax.swing.JCheckBox editorial;
     private javax.swing.JTextField efuente;
     private javax.swing.JTextField ekeyautor;
     private javax.swing.JTextField ekeyindice;
     private javax.swing.JTextField eresumen;
+    private javax.swing.JCheckBox erratum;
     private javax.swing.JTextField etitulo;
     private javax.swing.JTextField fuente;
+    private javax.swing.JCheckBox geographic;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -366,6 +808,9 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -377,8 +822,21 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField keyautor;
     private javax.swing.JTextField keyindice;
+    private javax.swing.JCheckBox letter;
+    private javax.swing.JCheckBox marketing;
+    private javax.swing.JCheckBox naturallang;
+    private javax.swing.JCheckBox note;
     private javax.swing.JTextArea output;
     private javax.swing.JTextField resumen;
+    private javax.swing.JCheckBox review;
+    private javax.swing.JCheckBox software;
+    private javax.swing.JCheckBox spain;
     private javax.swing.JTextField titulo;
+    private javax.swing.JCheckBox videogames;
+    private javax.swing.JCheckBox wireless;
+    private javax.swing.JCheckBox year1;
+    private javax.swing.JCheckBox year2;
+    private javax.swing.JCheckBox year3;
+    private javax.swing.JCheckBox year4;
     // End of variables declaration//GEN-END:variables
 }
