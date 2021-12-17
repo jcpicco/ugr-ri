@@ -623,121 +623,169 @@ public class Interfaz extends javax.swing.JFrame {
     private void cloudcomputingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cloudcomputingActionPerformed
         if(cloudcomputing.isSelected()) facetas.add("category=cloud-computing");
         else facetas.remove("category=cloud-computing");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_cloudcomputingActionPerformed
 
     private void digitallibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_digitallibraryActionPerformed
         if(digitallibrary.isSelected()) facetas.add("category=digital-library");
         else facetas.remove("category=digital-library");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_digitallibraryActionPerformed
 
     private void softwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_softwareActionPerformed
         if(software.isSelected()) facetas.add("category=software");
         else facetas.remove("category=software");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_softwareActionPerformed
 
     private void confreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confreviewActionPerformed
         if(confreview.isSelected()) facetas.add("doc_type=Conference Review");
         else facetas.remove("doc_type=Conference Review");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_confreviewActionPerformed
 
     private void bookchapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookchapterActionPerformed
         if(bookchapter.isSelected()) facetas.add("doc_type=Book Chapter");
         else facetas.remove("doc_type=Book Chapter");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_bookchapterActionPerformed
 
     private void confpaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confpaperActionPerformed
         if(confpaper.isSelected()) facetas.add("doc_type=Conference Paper");
         else facetas.remove("doc_type=Conference Paper");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_confpaperActionPerformed
 
     private void year1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1ActionPerformed
         if(year1.isSelected()) facetas.add("year=2019");
         else facetas.remove("year=2019");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_year1ActionPerformed
 
     private void year3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3ActionPerformed
         if(year3.isSelected()) facetas.add("year=2021");
         else facetas.remove("year=2021");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_year3ActionPerformed
 
     private void datascienceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datascienceActionPerformed
         if(datascience.isSelected()) facetas.add("category=data-science");
         else facetas.remove("category=data-science");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_datascienceActionPerformed
 
     private void geographicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geographicActionPerformed
         if(geographic.isSelected()) facetas.add("category=geographic-information-system");
         else facetas.remove("category=geographic-information-system");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_geographicActionPerformed
 
     private void marketingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marketingActionPerformed
         if(marketing.isSelected()) facetas.add("category=marketing");
         else facetas.remove("category=marketing");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_marketingActionPerformed
 
     private void naturallangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_naturallangActionPerformed
         if(naturallang.isSelected()) facetas.add("category=natural-language-processing");
         else facetas.remove("category=natural-language-processing");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_naturallangActionPerformed
 
     private void spainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spainActionPerformed
-        if(spain.isSelected()) facetas.add("category=wireless-connection");
-        else facetas.remove("category=wireless-connection");
+        if(spain.isSelected()) facetas.add("category=spain");
+        else facetas.remove("category=spain");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_spainActionPerformed
 
     private void wirelessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wirelessActionPerformed
-        if(wireless.isSelected()) facetas.add("category=spain");
-        else facetas.remove("category=spain");
+        if(wireless.isSelected()) facetas.add("category=wireless-connection");
+        else facetas.remove("category=wireless-connection");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_wirelessActionPerformed
 
     private void videogamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videogamesActionPerformed
         if(videogames.isSelected()) facetas.add("category=videogames");
         else facetas.remove("category=videogames");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_videogamesActionPerformed
 
     private void articleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articleActionPerformed
         if(article.isSelected()) facetas.add("doc_type=Article");
         else facetas.remove("doc_type=Article");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_articleActionPerformed
 
     private void datapaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datapaperActionPerformed
         if(datapaper.isSelected()) facetas.add("doc_type=Data Paper");
         else facetas.remove("doc_type=Data Paper");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_datapaperActionPerformed
 
     private void editorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorialActionPerformed
         if(editorial.isSelected()) facetas.add("doc_type=Editorial");
         else facetas.remove("doc_type=Editorial");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_editorialActionPerformed
 
     private void erratumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_erratumActionPerformed
         if(erratum.isSelected()) facetas.add("doc_type=Erratum");
         else facetas.remove("doc_type=Erratum");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_erratumActionPerformed
 
     private void letterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_letterActionPerformed
         if(letter.isSelected()) facetas.add("doc_type=Letter");
         else facetas.remove("doc_type=Letter");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_letterActionPerformed
 
     private void noteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noteActionPerformed
         if(note.isSelected()) facetas.add("doc_type=Note");
         else facetas.remove("doc_type=Note");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_noteActionPerformed
 
     private void reviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewActionPerformed
         if(review.isSelected()) facetas.add("doc_type=Review");
         else facetas.remove("doc_type=Review");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_reviewActionPerformed
 
     private void year2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2ActionPerformed
         if(year2.isSelected()) facetas.add("year=2020");
         else facetas.remove("year=2020");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_year2ActionPerformed
 
     private void year4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year4ActionPerformed
         if(year4.isSelected()) facetas.add("year=2022");
         else facetas.remove("year=2022");
+        
+        this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_year4ActionPerformed
 
     private void ekeyindiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ekeyindiceActionPerformed
