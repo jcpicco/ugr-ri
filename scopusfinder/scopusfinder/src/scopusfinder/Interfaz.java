@@ -4,7 +4,7 @@
  */
 package scopusfinder;
 
-import java.util.ArrayList;
+import java.util.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 /**
  *
@@ -474,9 +474,7 @@ public class Interfaz extends javax.swing.JFrame {
                                     .addComponent(geographic))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(marketing)
-                                        .addGap(0, 0, 0))
+                                    .addComponent(marketing)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(software)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -592,7 +590,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         output.setLineWrap(true);
         output.setWrapStyleWord(true);
-        String resultado = "";
+        List<String> resultado = new ArrayList<>();
         String campos[] = new String[]  {   autor.getText(),
                                             eautor.getText(),
                                             titulo.getText(),
@@ -616,7 +614,7 @@ public class Interfaz extends javax.swing.JFrame {
             System.err.print("Campos no válido");
         }
         
-        output.setText(resultado);
+        output.setText(resultado.get(0));
         output.setCaretPosition(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 

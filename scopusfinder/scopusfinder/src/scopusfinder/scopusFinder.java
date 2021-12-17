@@ -123,9 +123,10 @@ public class scopusFinder {
         return query;
     }
 
-    public String indexSearch(Analyzer analyzer, Similarity similarity, String[] campos, String[] facets) throws ParseException{
+    public List<String> indexSearch(Analyzer analyzer, Similarity similarity, String[] campos, String[] facets) throws ParseException{
         IndexReader reader = null;
-        String output = "";
+        List<String> output = new ArrayList<>();
+        String resultados = "";
 
         try{
             reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
@@ -180,50 +181,54 @@ public class scopusFinder {
 
                 List<FacetResult> lista = facetas.getAllDims(100);
                 List<FacetResult> scores = facetas_score.getAllDims(100);
-                System.out.println(lista);
-                System.out.println("------------------------------------------");
-                System.out.println(scores);
 
                 System.out.println(numTotalHits+" documentos encontrados");
-
+                
+                resultados += "Número de resultados: " + hits.length + "";
                 for(int i=0 ; i<hits.length ; i++){
                     Document doc = searcher.doc(hits[i].doc);
-                    output += "Documento "+(i+1);
-                    output += "\n\tAuthor: " + doc.get("author");
+                    resultados += "Documento "+(i+1);
+                    resultados += "\n\tAuthor: " + doc.get("author");
                     if(!doc.get("title").equals(""))
-                        output += "\n\tTitle: " + doc.get("title");
+                        resultados += "\n\tTitle: " + doc.get("title");
                     if(!doc.get("category").equals(""))
-                        output += "\n\tCategory: " + doc.get("category");
+                        resultados += "\n\tCategory: " + doc.get("category");
                     if(!doc.get("year").equals(""))
-                        output += "\n\tyear: " + doc.get("year");
+                        resultados += "\n\tyear: " + doc.get("year");
                     if(!doc.get("volume").equals(""))
-                        output += "\n\tVolume: " + doc.get("volume");
+                        resultados += "\n\tVolume: " + doc.get("volume");
                     if(!doc.get("issue").equals(""))
-                        output += "\n\tIssue: " + doc.get("issue");
+                        resultados += "\n\tIssue: " + doc.get("issue");
                     if(!doc.get("doc_type").equals(""))
-                        output += "\n\tDocument type: " + doc.get("doc_type");
+                        resultados += "\n\tDocument type: " + doc.get("doc_type");
                     if(!doc.get("article_number").equals(""))
-                        output += "\n\tArticle number: " + doc.get("article_number");
+                        resultados += "\n\tArticle number: " + doc.get("article_number");
                     if(!doc.get("page_start").equals(""))
-                        output += "\n\tPage start: " + doc.get("page_start");
+                        resultados += "\n\tPage start: " + doc.get("page_start");
                     if(!doc.get("page_end").equals(""))
-                        output += "\n\tPage end: " + doc.get("page_end");
+                        resultados += "\n\tPage end: " + doc.get("page_end");
                     if(!doc.get("page_count").equals(""))
-                        output += "\n\tPage count: " + doc.get("page_count");
+                        resultados += "\n\tPage count: " + doc.get("page_count");
                     if(!doc.get("doi").equals(""))
-                        output += "\n\tDOI: " + doc.get("doi");
+                        resultados += "\n\tDOI: " + doc.get("doi");
                     if(!doc.get("link").equals(""))
-                        output += "\n\tLink: " + doc.get("link");
+                        resultados += "\n\tLink: " + doc.get("link");
                     if(!doc.get("affiliations").equals(""))
-                        output += "\n\tAffiliations: " + doc.get("affiliations");
+                        resultados += "\n\tAffiliations: " + doc.get("affiliations");
                     if(!doc.get("abstract").equals(""))
-                        output += "\n\tAbstract: " + doc.get("abstract");
+                        resultados += "\n\tAbstract: " + doc.get("abstract");
                     if(!doc.get("public_status").equals(""))
-                        output += "\n\tPublic status: " + doc.get("public_status");
+                        resultados += "\n\tPublic status: " + doc.get("public_status");
                     if(!doc.get("eid").equals(""))
-                        output += "\n\tEID: " + doc.get("eid") + "\n\n";
+                        resultados += "\n\tEID: " + doc.get("eid") + "\n\n";
                 }
-            
+                output.add(resultados);
+                
+                for(int i = 0; i < lista.size(); i++){
+                    Integer count = lista.get(i).childCount;
+                    System.out.println(lista.get(i).dim + "(" + count.toString() + ")");
+                    output.add(lista.get(i).dim + "(" + count.toString() + ")");
+                }
         reader.close();
         } catch (IOException e){
             try{
@@ -238,14 +243,14 @@ public class scopusFinder {
         return output;
     }
 
-    public static String main(String[] args, String[] args2) throws ParseException{
+    public static List<String> main(String[] args, String[] args2) throws ParseException{
         Analyzer analyzer = new SimpleAnalyzer();
         Similarity similarity = new ClassicSimilarity();
         // Similarity similarity = new LMDirichletSimilarity();
         // Similarity similarity = new BM25Similarity();
 
         scopusFinder busqueda = new scopusFinder();
-        String output = busqueda.indexSearch(analyzer, similarity, args, args2);
+        List<String> output = busqueda.indexSearch(analyzer, similarity, args, args2);
         
         return output;
     }
