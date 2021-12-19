@@ -10,7 +10,7 @@ import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.*;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
-import org.apache.lucene.index.*;
+import org.apache.lucene.facet.LabelAndValue;
 
 import org.apache.lucene.facet.FacetsConfig;
 import org.apache.lucene.facet.DrillDownQuery;
@@ -184,7 +184,7 @@ public class scopusFinder {
 
                 System.out.println(numTotalHits+" documentos encontrados");
                 
-                resultados += "Número de resultados: " + hits.length + "";
+                resultados += "Número de resultados: " + hits.length + "\n";
                 for(int i=0 ; i<hits.length ; i++){
                     Document doc = searcher.doc(hits[i].doc);
                     resultados += "Documento "+(i+1);
@@ -224,11 +224,14 @@ public class scopusFinder {
                 }
                 output.add(resultados);
                 
-                for(int i = 0; i < lista.size(); i++){
-                    Integer count = lista.get(i).childCount;
-                    System.out.println(lista.get(i).dim + "(" + count.toString() + ")");
-                    output.add(lista.get(i).dim + "(" + count.toString() + ")");
+                for(FacetResult faux : lista){
+                    for(int i=0 ; i < faux.labelValues.length ; i++){
+                        output.add(faux.labelValues[i].label);
+                        output.add(faux.labelValues[i].value.toString());
+                        System.out.println(faux.labelValues[i].label+"|"+faux.labelValues[i].value.toString());
+                    }
                 }
+                
         reader.close();
         } catch (IOException e){
             try{

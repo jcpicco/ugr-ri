@@ -17,6 +17,30 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        cloudcomputing.setEnabled(false);
+        digitallibrary.setEnabled(false);
+        software.setEnabled(false);
+        naturallang.setEnabled(false);
+        wireless.setEnabled(false);
+        datascience.setEnabled(false);
+        geographic.setEnabled(false);
+        marketing.setEnabled(false);
+        spain.setEnabled(false);
+        videogames.setEnabled(false);
+        bookchapter.setEnabled(false);
+        confpaper.setEnabled(false);
+        confreview.setEnabled(false);
+        datapaper.setEnabled(false);
+        editorial.setEnabled(false);
+        article.setEnabled(false);
+        erratum.setEnabled(false);
+        letter.setEnabled(false);
+        note.setEnabled(false);
+        review.setEnabled(false);
+        year1.setEnabled(false);
+        year2.setEnabled(false);
+        year3.setEnabled(false);
+        year4.setEnabled(false);
     }
 
     /**
@@ -350,101 +374,157 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(173, 173, 173))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(digitallibrary)
+                            .addComponent(cloudcomputing)
+                            .addComponent(software)
+                            .addComponent(naturallang)
+                            .addComponent(wireless)
+                            .addComponent(confpaper)
+                            .addComponent(bookchapter)
+                            .addComponent(confreview)
+                            .addComponent(datapaper)
+                            .addComponent(editorial)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17)
+                            .addComponent(year1)
+                            .addComponent(year3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cloudcomputing)
-                                    .addComponent(software)
-                                    .addComponent(naturallang)
-                                    .addComponent(wireless))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(spain)
                                     .addComponent(marketing)
                                     .addComponent(geographic)
                                     .addComponent(datascience)
                                     .addComponent(videogames)))
-                            .addComponent(jLabel15)
-                            .addComponent(confpaper)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bookchapter)
-                                    .addComponent(confreview)
-                                    .addComponent(datapaper)
-                                    .addComponent(editorial))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(note)
-                                    .addComponent(letter)
-                                    .addComponent(erratum)
-                                    .addComponent(article)
-                                    .addComponent(review)))
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(resumen)
-                                .addComponent(keyautor, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(ekeyautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(eresumen, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fuente)
-                                .addComponent(afiliados, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(eafiliados, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(efuente, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(autor)
-                                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(etitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
+                            .addComponent(note)
+                            .addComponent(letter)
+                            .addComponent(erratum)
+                            .addComponent(article)
+                            .addComponent(review)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(year2)
+                                .addComponent(year4)))
+                        .addGap(36, 36, 36)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(resumen)
+                        .addComponent(keyautor, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ekeyautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(eresumen, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(fuente)
+                        .addComponent(afiliados, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(eafiliados, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(efuente, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(autor)
+                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(etitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(year1)
-                            .addComponent(year3))
-                        .addGap(95, 95, 95)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(year2)
-                            .addComponent(year4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(441, 441, 441))))
+                        .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel15))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(cloudcomputing)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(digitallibrary)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(software)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(naturallang)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(wireless)
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(bookchapter)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(confpaper)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(confreview)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(datapaper)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(editorial)
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(year1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(year3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(datascience)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(geographic)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(marketing)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addComponent(spain)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(videogames)
+                                .addGap(56, 56, 56)
+                                .addComponent(article)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(erratum)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(letter)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addComponent(note)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(review)
+                                .addGap(50, 50, 50)
+                                .addComponent(year2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(year4))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
@@ -463,31 +543,8 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(efuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cloudcomputing)
-                                    .addComponent(datascience))
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(digitallibrary)
-                                    .addComponent(geographic))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(marketing)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(software)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(naturallang)
-                                            .addComponent(spain))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(videogames)
-                                    .addComponent(wireless))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(afiliados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
@@ -510,58 +567,22 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(ekeyautor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(bookchapter)
-                                    .addComponent(article))
+                                    .addComponent(jLabel12))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(confpaper)
-                                    .addComponent(erratum))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(letter)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(confreview)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(datapaper)
-                                            .addComponent(note))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(review)
-                                    .addComponent(editorial))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(year1)
-                                    .addComponent(year2))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(year3)
-                                            .addComponent(year4)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel14)))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -614,181 +635,353 @@ public class Interfaz extends javax.swing.JFrame {
             System.err.print("Campos no válido");
         }
         
+        cloudcomputing.setText("Cloud Computing");
+        digitallibrary.setText("Digital Library");
+        software.setText("Software");
+        naturallang.setText("Natural Language");
+        datascience.setText("Data Science");
+        geographic.setText("Geographic");
+        marketing.setText("Marketing");
+        spain.setText("Spain");
+        videogames.setText("Videogames");
+        wireless.setText("Wireless Connection");
+        bookchapter.setText("Book Chapter");
+        confpaper.setText("Conference Paper");
+        confreview.setText("Conference Review");
+        datapaper.setText("Data Paper");
+        editorial.setText("Editorial");
+        article.setText("Article");
+        erratum.setText("Erratum");
+        letter.setText("Letter");
+        note.setText("Note");
+        review.setText("Review");
+        year1.setText("2019");
+        year2.setText("2020");
+        year3.setText("2021");
+        year4.setText("2022");
+        
+        cloudcomputing.setEnabled(false);
+        digitallibrary.setEnabled(false);
+        software.setEnabled(false);
+        naturallang.setEnabled(false);
+        wireless.setEnabled(false);
+        datascience.setEnabled(false);
+        geographic.setEnabled(false);
+        marketing.setEnabled(false);
+        spain.setEnabled(false);
+        videogames.setEnabled(false);
+        bookchapter.setEnabled(false);
+        confpaper.setEnabled(false);
+        confreview.setEnabled(false);
+        datapaper.setEnabled(false);
+        editorial.setEnabled(false);
+        article.setEnabled(false);
+        erratum.setEnabled(false);
+        letter.setEnabled(false);
+        note.setEnabled(false);
+        review.setEnabled(false);
+        year1.setEnabled(false);
+        year2.setEnabled(false);
+        year3.setEnabled(false);
+        year4.setEnabled(false);
+        
+        for(int i=1 ; i<resultado.size() ; i+=2){
+            if(resultado.get(i).equals("cloud-computing")){
+                cloudcomputing.setText("Cloud Computing ("+resultado.get(i+1)+")");
+                cloudcomputing.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("digital-library")){
+                digitallibrary.setText("Digital Library ("+resultado.get(i+1)+")");
+                digitallibrary.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("software")){
+                software.setText("Software ("+resultado.get(i+1)+")");
+                software.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("natural-language-processing")){
+                naturallang.setText("Natural Language ("+resultado.get(i+1)+")");
+                naturallang.setEnabled(true);
+            } 
+            
+            if(resultado.get(i).equals("data-science")){
+                datascience.setText("Data Science ("+resultado.get(i+1)+")");
+                datascience.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("geographic-information-system")){
+                geographic.setText("Geographic ("+resultado.get(i+1)+")");
+                geographic.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("marketing")){
+                marketing.setText("Marketing ("+resultado.get(i+1)+")");
+                marketing.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("spain")){
+                spain.setText("Spain ("+resultado.get(i+1)+")");
+                spain.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("videogames")){
+                videogames.setText("Videogames ("+resultado.get(i+1)+")");
+                videogames.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("wireless-connection")){
+                wireless.setText("Wireless Connection ("+resultado.get(i+1)+")");
+                wireless.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Book Chapter")){
+                bookchapter.setText("Book Chapter ("+resultado.get(i+1)+")");
+                bookchapter.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Conference Paper")){
+                confpaper.setText("Conference Paper ("+resultado.get(i+1)+")");
+                confpaper.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Conference Review")){
+                confreview.setText("Conference Review ("+resultado.get(i+1)+")");
+                confreview.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Data Paper")){
+                datapaper.setText("Data Paper ("+resultado.get(i+1)+")");
+                datapaper.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Editorial")){
+                editorial.setText("Editorial ("+resultado.get(i+1)+")");
+                editorial.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Article")){
+                article.setText("Article ("+resultado.get(i+1)+")");
+                article.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Erratum")){
+                erratum.setText("Erratum ("+resultado.get(i+1)+")");
+                erratum.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Letter")){
+                letter.setText("Letter ("+resultado.get(i+1)+")");
+                letter.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Note")){
+                note.setText("Note ("+resultado.get(i+1)+")");
+                note.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("Review")){
+                review.setText("Review ("+resultado.get(i+1)+")");
+                review.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("2019")){
+                year1.setText("2019 ("+resultado.get(i+1)+")");
+                year1.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("2020")){
+                year2.setText("2020 ("+resultado.get(i+1)+")");
+                year2.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("2021")){
+                year3.setText("2021 ("+resultado.get(i+1)+")");
+                year3.setEnabled(true);
+            }
+            
+            if(resultado.get(i).equals("2022")){
+                year4.setText("2022 ("+resultado.get(i+1)+")");
+                year4.setEnabled(true);
+            }
+        }
+        
         output.setText(resultado.get(0));
         output.setCaretPosition(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void cloudcomputingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cloudcomputingActionPerformed
-        if(cloudcomputing.isSelected()) facetas.add("category=cloud-computing");
-        else facetas.remove("category=cloud-computing");
-        
+    private void ekeyindiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ekeyindiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ekeyindiceActionPerformed
+
+    private void editorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorialActionPerformed
+        if(editorial.isSelected()) facetas.add("doc_type=Editorial");
+        else facetas.remove("doc_type=Editorial");
+
         this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_cloudcomputingActionPerformed
+    }//GEN-LAST:event_editorialActionPerformed
+
+    private void year4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year4ActionPerformed
+        if(year4.isSelected()) facetas.add("year=2022");
+        else facetas.remove("year=2022");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_year4ActionPerformed
+
+    private void wirelessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wirelessActionPerformed
+        if(wireless.isSelected()) facetas.add("category=wireless-connection");
+        else facetas.remove("category=wireless-connection");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_wirelessActionPerformed
+
+    private void datascienceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datascienceActionPerformed
+        if(datascience.isSelected()) facetas.add("category=data-science");
+        else facetas.remove("category=data-science");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_datascienceActionPerformed
+
+    private void marketingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marketingActionPerformed
+        if(marketing.isSelected()) facetas.add("category=marketing");
+        else facetas.remove("category=marketing");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_marketingActionPerformed
+
+    private void erratumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_erratumActionPerformed
+        if(erratum.isSelected()) facetas.add("doc_type=Erratum");
+        else facetas.remove("doc_type=Erratum");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_erratumActionPerformed
 
     private void digitallibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_digitallibraryActionPerformed
         if(digitallibrary.isSelected()) facetas.add("category=digital-library");
         else facetas.remove("category=digital-library");
-        
+
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_digitallibraryActionPerformed
 
-    private void softwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_softwareActionPerformed
-        if(software.isSelected()) facetas.add("category=software");
-        else facetas.remove("category=software");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_softwareActionPerformed
+    private void letterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_letterActionPerformed
+        if(letter.isSelected()) facetas.add("doc_type=Letter");
+        else facetas.remove("doc_type=Letter");
 
-    private void confreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confreviewActionPerformed
-        if(confreview.isSelected()) facetas.add("doc_type=Conference Review");
-        else facetas.remove("doc_type=Conference Review");
-        
         this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_confreviewActionPerformed
+    }//GEN-LAST:event_letterActionPerformed
 
-    private void bookchapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookchapterActionPerformed
-        if(bookchapter.isSelected()) facetas.add("doc_type=Book Chapter");
-        else facetas.remove("doc_type=Book Chapter");
-        
+    private void datapaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datapaperActionPerformed
+        if(datapaper.isSelected()) facetas.add("doc_type=Data Paper");
+        else facetas.remove("doc_type=Data Paper");
+
         this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_bookchapterActionPerformed
+    }//GEN-LAST:event_datapaperActionPerformed
+
+    private void year2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2ActionPerformed
+        if(year2.isSelected()) facetas.add("year=2020");
+        else facetas.remove("year=2020");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_year2ActionPerformed
+
+    private void geographicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geographicActionPerformed
+        if(geographic.isSelected()) facetas.add("category=geographic-information-system");
+        else facetas.remove("category=geographic-information-system");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_geographicActionPerformed
+
+    private void articleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articleActionPerformed
+        if(article.isSelected()) facetas.add("doc_type=Article");
+        else facetas.remove("doc_type=Article");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_articleActionPerformed
 
     private void confpaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confpaperActionPerformed
         if(confpaper.isSelected()) facetas.add("doc_type=Conference Paper");
         else facetas.remove("doc_type=Conference Paper");
-        
+
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_confpaperActionPerformed
+
+    private void spainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spainActionPerformed
+        if(spain.isSelected()) facetas.add("category=spain");
+        else facetas.remove("category=spain");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_spainActionPerformed
+
+    private void videogamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videogamesActionPerformed
+        if(videogames.isSelected()) facetas.add("category=videogames");
+        else facetas.remove("category=videogames");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_videogamesActionPerformed
+
+    private void reviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewActionPerformed
+        if(review.isSelected()) facetas.add("doc_type=Review");
+        else facetas.remove("doc_type=Review");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_reviewActionPerformed
+
+    private void cloudcomputingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cloudcomputingActionPerformed
+        if(cloudcomputing.isSelected()) facetas.add("category=cloud-computing");
+        else facetas.remove("category=cloud-computing");
+
+        this.jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_cloudcomputingActionPerformed
 
     private void year1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1ActionPerformed
         if(year1.isSelected()) facetas.add("year=2019");
         else facetas.remove("year=2019");
-        
+
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_year1ActionPerformed
 
     private void year3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3ActionPerformed
         if(year3.isSelected()) facetas.add("year=2021");
         else facetas.remove("year=2021");
-        
+
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_year3ActionPerformed
 
-    private void datascienceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datascienceActionPerformed
-        if(datascience.isSelected()) facetas.add("category=data-science");
-        else facetas.remove("category=data-science");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_datascienceActionPerformed
+    private void softwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_softwareActionPerformed
+        if(software.isSelected()) facetas.add("category=software");
+        else facetas.remove("category=software");
 
-    private void geographicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geographicActionPerformed
-        if(geographic.isSelected()) facetas.add("category=geographic-information-system");
-        else facetas.remove("category=geographic-information-system");
-        
         this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_geographicActionPerformed
+    }//GEN-LAST:event_softwareActionPerformed
 
-    private void marketingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marketingActionPerformed
-        if(marketing.isSelected()) facetas.add("category=marketing");
-        else facetas.remove("category=marketing");
-        
+    private void confreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confreviewActionPerformed
+        if(confreview.isSelected()) facetas.add("doc_type=Conference Review");
+        else facetas.remove("doc_type=Conference Review");
+
         this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_marketingActionPerformed
+    }//GEN-LAST:event_confreviewActionPerformed
 
     private void naturallangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_naturallangActionPerformed
         if(naturallang.isSelected()) facetas.add("category=natural-language-processing");
         else facetas.remove("category=natural-language-processing");
-        
+
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_naturallangActionPerformed
 
-    private void spainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spainActionPerformed
-        if(spain.isSelected()) facetas.add("category=spain");
-        else facetas.remove("category=spain");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_spainActionPerformed
+    private void bookchapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookchapterActionPerformed
+        if(bookchapter.isSelected()) facetas.add("doc_type=Book Chapter");
+        else facetas.remove("doc_type=Book Chapter");
 
-    private void wirelessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wirelessActionPerformed
-        if(wireless.isSelected()) facetas.add("category=wireless-connection");
-        else facetas.remove("category=wireless-connection");
-        
         this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_wirelessActionPerformed
-
-    private void videogamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videogamesActionPerformed
-        if(videogames.isSelected()) facetas.add("category=videogames");
-        else facetas.remove("category=videogames");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_videogamesActionPerformed
-
-    private void articleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articleActionPerformed
-        if(article.isSelected()) facetas.add("doc_type=Article");
-        else facetas.remove("doc_type=Article");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_articleActionPerformed
-
-    private void datapaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datapaperActionPerformed
-        if(datapaper.isSelected()) facetas.add("doc_type=Data Paper");
-        else facetas.remove("doc_type=Data Paper");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_datapaperActionPerformed
-
-    private void editorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorialActionPerformed
-        if(editorial.isSelected()) facetas.add("doc_type=Editorial");
-        else facetas.remove("doc_type=Editorial");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_editorialActionPerformed
-
-    private void erratumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_erratumActionPerformed
-        if(erratum.isSelected()) facetas.add("doc_type=Erratum");
-        else facetas.remove("doc_type=Erratum");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_erratumActionPerformed
-
-    private void letterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_letterActionPerformed
-        if(letter.isSelected()) facetas.add("doc_type=Letter");
-        else facetas.remove("doc_type=Letter");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_letterActionPerformed
+    }//GEN-LAST:event_bookchapterActionPerformed
 
     private void noteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noteActionPerformed
         if(note.isSelected()) facetas.add("doc_type=Note");
         else facetas.remove("doc_type=Note");
-        
+
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_noteActionPerformed
-
-    private void reviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewActionPerformed
-        if(review.isSelected()) facetas.add("doc_type=Review");
-        else facetas.remove("doc_type=Review");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_reviewActionPerformed
-
-    private void year2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2ActionPerformed
-        if(year2.isSelected()) facetas.add("year=2020");
-        else facetas.remove("year=2020");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_year2ActionPerformed
-
-    private void year4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year4ActionPerformed
-        if(year4.isSelected()) facetas.add("year=2022");
-        else facetas.remove("year=2022");
-        
-        this.jButton1ActionPerformed(evt);
-    }//GEN-LAST:event_year4ActionPerformed
-
-    private void ekeyindiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ekeyindiceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ekeyindiceActionPerformed
 
     /**
      * @param args the command line arguments
