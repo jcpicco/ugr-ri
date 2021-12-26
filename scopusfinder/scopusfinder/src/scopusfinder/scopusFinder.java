@@ -64,7 +64,7 @@ public class scopusFinder {
         for(int i = 0; i < campos.length; i++){
             if(i%2==0){
                 if(!campos[i].isEmpty()){
-                    if(i == 4){
+                    if(i == 8){
                         QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
                         qaux = parser.parse(campos[i]);
                         bc = new BooleanClause(qaux, BooleanClause.Occur.MUST);
@@ -83,7 +83,7 @@ public class scopusFinder {
                 }
             } else{
                 if(!campos[i].isEmpty()){
-                    if(i == 5){
+                    if(i == 9){
                         QueryParser parser = new QueryParser(busquedaCampos[i], new EnglishAnalyzer());
                         qaux = parser.parse(campos[i]);
                         bc = new BooleanClause(qaux, BooleanClause.Occur.MUST_NOT);
