@@ -1,0 +1,1 @@
+Para probar el programa directamente tienes que acceder a la carpeta \scopusfinder\dist y ejecutar scopusfinder.jar

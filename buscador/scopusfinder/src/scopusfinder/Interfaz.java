@@ -12,6 +12,7 @@ import org.apache.lucene.queryparser.classic.ParseException;
  */
 public class Interfaz extends javax.swing.JFrame {
     ArrayList<String> facetas = new ArrayList<>();
+    List<String> resultado = new ArrayList<>();
     /**
      * Creates new form Interfaz
      */
@@ -110,6 +111,7 @@ public class Interfaz extends javax.swing.JFrame {
         year2 = new javax.swing.JCheckBox();
         year3 = new javax.swing.JCheckBox();
         year4 = new javax.swing.JCheckBox();
+        limpieza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -366,6 +368,13 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        limpieza.setText("Limpiar");
+        limpieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiezaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -445,7 +454,9 @@ public class Interfaz extends javax.swing.JFrame {
                         .addComponent(etitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(eautor, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(limpieza))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)))
                 .addGap(24, 24, 24)
@@ -572,7 +583,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(keyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(28, 28, 28)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -580,7 +591,9 @@ public class Interfaz extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(ekeyindice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel14)))))
+                                            .addComponent(jLabel14))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(limpieza))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
@@ -611,7 +624,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         output.setLineWrap(true);
         output.setWrapStyleWord(true);
-        List<String> resultado = new ArrayList<>();
+        resultado.clear();
         String campos[] = new String[]  {   autor.getText(),
                                             eautor.getText(),
                                             titulo.getText(),
@@ -634,6 +647,21 @@ public class Interfaz extends javax.swing.JFrame {
         } catch (ParseException pe){
             System.err.print("Campos no válido");
         }
+        
+        autor.setEnabled(false);
+        eautor.setEnabled(false);
+        titulo.setEnabled(false);
+        etitulo.setEnabled(false);
+        fuente.setEnabled(false);
+        efuente.setEnabled(false);
+        afiliados.setEnabled(false);
+        eafiliados.setEnabled(false);
+        resumen.setEnabled(false);
+        eresumen.setEnabled(false);
+        keyautor.setEnabled(false);
+        ekeyautor.setEnabled(false);
+        keyindice.setEnabled(false);
+        ekeyindice.setEnabled(false);
         
         cloudcomputing.setText("Cloud Computing");
         digitallibrary.setText("Digital Library");
@@ -983,6 +1011,117 @@ public class Interfaz extends javax.swing.JFrame {
         this.jButton1ActionPerformed(evt);
     }//GEN-LAST:event_noteActionPerformed
 
+    private void limpiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiezaActionPerformed
+        autor.setEnabled(true);
+        eautor.setEnabled(true);
+        titulo.setEnabled(true);
+        etitulo.setEnabled(true);
+        fuente.setEnabled(true);
+        efuente.setEnabled(true);
+        afiliados.setEnabled(true);
+        eafiliados.setEnabled(true);
+        resumen.setEnabled(true);
+        eresumen.setEnabled(true);
+        keyautor.setEnabled(true);
+        ekeyautor.setEnabled(true);
+        keyindice.setEnabled(true);
+        ekeyindice.setEnabled(true);
+        
+        facetas.clear();
+        resultado.clear();
+        output.setText("");
+        
+        cloudcomputing.setText("Cloud Computing");
+        digitallibrary.setText("Digital Library");
+        software.setText("Software");
+        naturallang.setText("Natural Language");
+        datascience.setText("Data Science");
+        geographic.setText("Geographic");
+        marketing.setText("Marketing");
+        spain.setText("Spain");
+        videogames.setText("Videogames");
+        wireless.setText("Wireless Connection");
+        bookchapter.setText("Book Chapter");
+        confpaper.setText("Conference Paper");
+        confreview.setText("Conference Review");
+        datapaper.setText("Data Paper");
+        editorial.setText("Editorial");
+        article.setText("Article");
+        erratum.setText("Erratum");
+        letter.setText("Letter");
+        note.setText("Note");
+        review.setText("Review");
+        year1.setText("2019");
+        year2.setText("2020");
+        year3.setText("2021");
+        year4.setText("2022");
+        
+        cloudcomputing.setEnabled(false);
+        digitallibrary.setEnabled(false);
+        software.setEnabled(false);
+        naturallang.setEnabled(false);
+        wireless.setEnabled(false);
+        datascience.setEnabled(false);
+        geographic.setEnabled(false);
+        marketing.setEnabled(false);
+        spain.setEnabled(false);
+        videogames.setEnabled(false);
+        bookchapter.setEnabled(false);
+        confpaper.setEnabled(false);
+        confreview.setEnabled(false);
+        datapaper.setEnabled(false);
+        editorial.setEnabled(false);
+        article.setEnabled(false);
+        erratum.setEnabled(false);
+        letter.setEnabled(false);
+        note.setEnabled(false);
+        review.setEnabled(false);
+        year1.setEnabled(false);
+        year2.setEnabled(false);
+        year3.setEnabled(false);
+        year4.setEnabled(false);
+        
+        autor.setText("");
+        eautor.setText("");
+        titulo.setText("");
+        etitulo.setText("");
+        fuente.setText("");
+        efuente.setText("");
+        afiliados.setText("");
+        eafiliados.setText("");
+        resumen.setText("");
+        eresumen.setText("");
+        keyautor.setText("");
+        ekeyautor.setText("");
+        keyindice.setText("");
+        ekeyindice.setText("");
+        
+        cloudcomputing.setSelected(false);
+        digitallibrary.setSelected(false);
+        software.setSelected(false);
+        naturallang.setSelected(false);
+        wireless.setSelected(false);
+        datascience.setSelected(false);
+        geographic.setSelected(false);
+        marketing.setSelected(false);
+        spain.setSelected(false);
+        videogames.setSelected(false);
+        bookchapter.setSelected(false);
+        confpaper.setSelected(false);
+        confreview.setSelected(false);
+        datapaper.setSelected(false);
+        editorial.setSelected(false);
+        article.setSelected(false);
+        erratum.setSelected(false);
+        letter.setSelected(false);
+        note.setSelected(false);
+        review.setSelected(false);
+        year1.setSelected(false);
+        year2.setSelected(false);
+        year3.setSelected(false);
+        year4.setSelected(false);
+    }//GEN-LAST:event_limpiezaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1062,6 +1201,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField keyautor;
     private javax.swing.JTextField keyindice;
     private javax.swing.JCheckBox letter;
+    private javax.swing.JButton limpieza;
     private javax.swing.JCheckBox marketing;
     private javax.swing.JCheckBox naturallang;
     private javax.swing.JCheckBox note;
